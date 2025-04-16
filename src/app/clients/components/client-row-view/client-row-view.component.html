@@ -1,0 +1,9 @@
+<div class="hstack gap-2 justify-content-between">
+  <strong>{{ client().firstname }} {{ client().lastname }}</strong>
+
+  <div>
+    <button class="btn btn-danger" (click)="deleteClient()">
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </div>
+</div>

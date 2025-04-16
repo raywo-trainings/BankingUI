@@ -1,71 +1,18 @@
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
-<p>client-list works!</p>
+<div class="hstack gap-2 justify-content-between mb-3">
+  <h2>Kunden</h2>
+
+  <div>
+    <button class="btn btn-primary" (click)="addClient()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      <span class="visually-hidde ms-2">Kunden anlegen</span>
+    </button>
+  </div>
+</div>
+
+<ul class="list-group">
+  @for (client of clients$ | async; track client.id) {
+    <li class="list-group-item">
+      <app-client-row-view [client]="client" />
+    </li>
+  }
+</ul>
