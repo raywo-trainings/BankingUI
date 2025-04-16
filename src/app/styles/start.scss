@@ -1,0 +1,11 @@
+.start {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+
+  padding-top: 5rem;
+
+  .card {
+    max-width: 32ch;
+  }
+}
