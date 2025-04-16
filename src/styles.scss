@@ -5,3 +5,7 @@
 @use 'bootstrap/scss/bootstrap';
 @use "app/styles/layout";
 @use "app/styles/start";
+
+strong {
+  font-weight: 600;
+}
