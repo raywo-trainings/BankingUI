@@ -1,0 +1,53 @@
+@if (showIcon()) {
+  <fa-icon [icon]="faTrash"></fa-icon>
+}
+
+@if (caption()) {
+  <span class="ms-2">{{ caption() }}</span>
+} @else {
+  <span class="visually-hidden ms-2">
+    Löschen
+  </span>
+}
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    @if (confirmationTitle()) {
+      <h3 class="modal-title">{{ confirmationTitle() }}</h3>
+    } @else {
+      <h3 class="modal-title"><i class="bi-trash h4 text-danger"></i>
+        Löschen
+      </h3>
+    }
+    <button type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+
+  <div class="modal-body">
+    @if (confirmationMessage()) {
+      @if (isTemplate(confirmationMessage()!)) {
+        <ng-template [ngTemplateOutlet]="messageAsTemplate()!"></ng-template>
+      } @else {
+        {{ confirmationMessage() }}
+      }
+    } @else {
+      <p>Sind Sie sicher, dass Sie dieses Element löschen wollen?</p>
+    }
+  </div>
+
+  <div class="modal-footer border-top">
+    <button type="button"
+            class="btn btn-outline-primary"
+            (click)="modal.dismiss('Cancel')">
+      Abbrechen
+    </button>
+    <button type="button"
+            class="btn btn-danger"
+            (click)="modal.close('Delete')">
+      Löschen
+    </button>
+  </div>
+</ng-template>

@@ -2,9 +2,9 @@
   <h2>Kunden</h2>
 
   <div>
-    <button class="btn btn-primary" (click)="addClient()">
-      <fa-icon [icon]="faPlus"></fa-icon>
-      <span class="visually-hidde ms-2">Kunden anlegen</span>
+    <button app-add-button
+            caption="Kunde anlegen"
+            (addClick)="addClient()">
     </button>
   </div>
 </div>
@@ -12,7 +12,9 @@
 <ul class="list-group">
   @for (client of clients$ | async; track client.id) {
     <li class="list-group-item">
-      <app-client-row-view [client]="client" />
+      <app-client-row-view [client]="client"
+                           (editClicked)="onClientEdit($event)"
+                           (deleteClicked)="onClientDelete($event)" />
     </li>
   }
 </ul>

@@ -1,26 +1,30 @@
 import { Component, input, output } from "@angular/core";
 import { Client } from "../../models/client.model";
-import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { DeleteButtonComponent } from "../../../common/components/delete-button/delete-button.component";
+import { EditButtonComponent } from "../../../common/components/edit-button/edit-button.component";
 
 
 @Component({
   selector: "app-client-row-view",
   imports: [
-    FaIconComponent
+    DeleteButtonComponent,
+    EditButtonComponent
   ],
   templateUrl: "./client-row-view.component.html"
 })
 export class ClientRowViewComponent {
 
-  protected readonly faTrash = faTrash;
-
   public client = input.required<Client>();
-  public clientDeleted = output<Client>();
+  public deleteClicked = output<Client>();
+  public editClicked = output<Client>();
 
 
-  protected deleteClient() {
-    this.clientDeleted.emit(this.client());
+  protected onDeleteConfirmed() {
+    this.deleteClicked.emit(this.client());
   }
 
+
+  protected onEditClick() {
+    this.editClicked.emit(this.client());
+  }
 }
