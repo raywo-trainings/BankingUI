@@ -1,0 +1,21 @@
+@use "./variables" as vars;
+
+@use "bootstrap/scss/bootstrap" with (
+  // Fonts
+  $font-family-sans-serif: vars.$fonts,
+  $font-size-base: 1.05rem,
+
+  // Colors
+  $primary: vars.$primary,
+  $secondary: vars.$secondary,
+  $navbar-light-color: #fff,
+  $navbar-light-hover-color: vars.$secondary,
+  $navbar-light-brand-color: #fff,
+  $navbar-light-active-color: vars.$secondary,
+);
+
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap');
+
+.navbar-brand {
+  font-weight: 100;
+}
