@@ -1,0 +1,18 @@
+<ngb-toast [class]="getToastClass()"
+           [autohide]="true"
+           [header]="toast().title || ''"
+           [delay]="toast().delay || 5000"
+           (hidden)="onHide(toast())"
+           class="mb-3">
+  @if (messageIsTemplate()) {
+    <ng-template [ngTemplateOutlet]="getTemplate()!"></ng-template>
+  } @else {
+    {{ toast().message }}
+
+    <ul>
+      @for (violation of toast().violations || []; track violation) {
+        <li>{{ violation }}</li>
+      }
+    </ul>
+  }
+</ngb-toast>
