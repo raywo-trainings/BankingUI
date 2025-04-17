@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h3 class="modal-title">
+    @if (isEdit()) {
+      Kunde bearbeiten
+    } @else {
+      Kunde anlegen
+    }
+  </h3>
+  <button type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="onCancel()">
+  </button>
+</div>
+
+<form #form="ngForm">
+  <div class="modal-body">
+    <div class="form-floating mb-3"
+         [class.was-validated]="firstnameField.dirty || firstnameField.touched">
+      <input type="text"
+             class="form-control"
+             id="firstnameInput"
+             name="firstname"
+             placeholder="Vorname"
+             required
+             minlength="2"
+             maxlength="100"
+             autofocus
+             [(ngModel)]="firstname"
+             #firstnameField="ngModel">
+      <label for="firstnameInput">Vorname</label>
+      <div class="invalid-feedback">
+        Bitte geben Sie einen Vornamen mit 2–100 Zeichen ein.
+      </div>
+    </div>
+
+    <div class="form-floating mb-3"
+         [class.was-validated]="lastnameField.dirty || lastnameField.touched">
+      <input type="text"
+             class="form-control"
+             id="lastnameInput"
+             name="lastname"
+             placeholder="Nachname"
+             required
+             minlength="2"
+             maxlength="100"
+             [(ngModel)]="lastname"
+             #lastnameField="ngModel">
+      <label for="lastnameInput">Vorname</label>
+      <div class="invalid-feedback">
+        Bitte geben Sie einen Nachnamen mit 2–100 Zeichen ein.
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-primary me-2"
+            (click)="onCancel()">
+      Abbrechen
+    </button>
+    <button type="submit"
+            class="btn btn-primary"
+            (click)="onSubmit()"
+            [disabled]="form.invalid">
+      Speichern
+    </button>
+  </div>
+</form>
+
