@@ -1,0 +1,57 @@
+.account-details {
+  display: grid;
+  grid-template-areas: "icon info add-info balance buttons";
+  grid-template-columns: auto 1fr 17ch 25ch auto;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .account-details-icon {
+    grid-area: icon;
+    font-size: 2.5rem;
+    margin-inline-end: 1rem;
+  }
+
+  .account-details-info {
+    grid-area: info;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .account-details-additional-info {
+    grid-area: add-info;
+
+    display: grid;
+  }
+
+  .account-details-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .account-details-balance {
+    grid-area: balance;
+
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    text-align: end;
+    margin-inline-start: 2rem;
+  }
+
+  .account-details-buttons {
+    grid-area: buttons;
+
+    display: flex;
+    gap: 0.5rem;
+    //align-items: end;
+    //text-align: end;
+  }
+}

@@ -8,6 +8,7 @@ import { Subscription } from "rxjs";
 import { CurrencyPipe } from "@angular/common";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FullNamePipe } from "../../pipes/fullName.pipe";
 
 
 @Component({
@@ -16,7 +17,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
     DeleteButtonComponent,
     EditButtonComponent,
     CurrencyPipe,
-    FaIconComponent
+    FaIconComponent,
+    FullNamePipe
   ],
   templateUrl: "./client-row-view.component.html"
 })
