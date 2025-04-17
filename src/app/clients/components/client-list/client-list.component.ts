@@ -40,29 +40,34 @@ export class ClientListComponent implements OnInit, OnDestroy {
 
   protected addClient() {
     const modalRef = this.modalService.open(ClientEditComponent);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     modalRef.componentInstance.client = signal(createEmptyClient());
 
     modalRef.result
       .then(client => {
         this.subscriptions.push(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           this.clientService.addClient(client).subscribe()
         );
       })
-      .catch(() => {});
+      .catch(() => { /* Do nothing. */ });
   }
 
 
   protected onClientEdit(client: Client) {
     const modalRef = this.modalService.open(ClientEditComponent);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     modalRef.componentInstance.client = signal(client);
 
     modalRef.result
       .then(client => {
         this.subscriptions.push(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           this.clientService.updateClient(client).subscribe()
         );
       })
-      .catch(() => {});
+      .catch(() => { /* Do nothing. */
+      });
   }
 
 

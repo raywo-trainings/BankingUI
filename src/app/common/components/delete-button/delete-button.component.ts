@@ -47,7 +47,7 @@ export class DeleteButtonComponent implements OnInit {
     event.stopPropagation();
 
     const options: NgbModalOptions = {
-      ariaLabelledBy: this.caption() || $localize`:@@t.deleteCaption:Delete`
+      ariaLabelledBy: this.caption()
     };
 
     this.modalService.open(this.modalContent, options)
@@ -63,6 +63,7 @@ export class DeleteButtonComponent implements OnInit {
         }
       );
   }
+
 
   protected isTemplate(value: string | TemplateRef<any>): value is TemplateRef<any> {
     return value !== undefined && value instanceof TemplateRef;

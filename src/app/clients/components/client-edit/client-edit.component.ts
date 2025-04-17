@@ -15,8 +15,8 @@ export class ClientEditComponent {
 
   private readonly modal = inject(NgbActiveModal);
 
-  protected firstname: string = "";
-  protected lastname: string = "";
+  protected firstname = "";
+  protected lastname = "";
 
   public client = input.required<Client>();
 

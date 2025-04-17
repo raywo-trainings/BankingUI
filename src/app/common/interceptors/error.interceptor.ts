@@ -7,12 +7,13 @@ import { createToastFromError } from "../models/toast.model";
 
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const errorContext = req.headers.get("X-Error-Context") || "Ein Fehler ist aufgetreten";
+  const errorContext = req.headers.get("X-Error-Context") ?? "Ein Fehler ist aufgetreten";
   const toastService = inject(ToastService);
 
   return next(req)
     .pipe(
       catchError((error: HttpErrorResponse) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const apiError: ApiError = error.error;
         apiError.title = errorContext;
 

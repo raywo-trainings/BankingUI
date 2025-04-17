@@ -4,6 +4,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: "button[app-edit-button]",
   imports: [
     FaIconComponent

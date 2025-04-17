@@ -17,7 +17,7 @@ export interface Toast {
 
 
 export function createToastFromError(error: ApiError,
-                                     delay: number = 5000,
+                                     delay = 5000,
                                      message?: string): Toast {
   const completeMessage = message ? `${message} – ${error.detail}` : error.detail;
 
