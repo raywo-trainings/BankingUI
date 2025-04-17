@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Client } from "../models/client.model";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { baseUrl } from "../../common/helper/base-url.helper";
 
 
@@ -17,13 +17,21 @@ export class ClientService {
 
 
   public updateClients() {
-    this.http.get<Client[]>(this.getBaseUrl())
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Kundenliste konnte nicht geladen werden"
+    });
+
+    this.http.get<Client[]>(this.getBaseUrl(), { headers })
       .subscribe(clients => this.clients = clients);
   }
 
 
   public addClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.getBaseUrl(), client)
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Kunde konnte nicht angelegt werden"
+    });
+
+    return this.http.post<Client>(this.getBaseUrl(), client, { headers })
       .pipe(
         tap(client => this.clients.push(client))
       );
@@ -31,18 +39,26 @@ export class ClientService {
 
 
   public updateClient(client: Client): Observable<Client> {
-    return this.http.put<Client>(this.getBaseUrl(client.id), client)
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Kunde konnte nicht geändert werden"
+    });
+
+    return this.http.put<Client>(this.getBaseUrl(client.id), client, { headers })
       .pipe(
         tap(updatedClient => {
           this.clients = this.clients.map(c =>
-            c.id === updatedClient.id ? updatedClient : c)
+            c.id === updatedClient.id ? updatedClient : c);
         })
       );
   }
 
 
   public deleteClient(client: Client): Observable<void> {
-    return this.http.delete<void>(this.getBaseUrl(client.id))
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Kunde konnte nicht gelöscht werden"
+    });
+
+    return this.http.delete<void>(this.getBaseUrl(client.id), { headers })
       .pipe(
         tap(() => this.clients = this.clients.filter(c => c.id !== client.id))
       );
