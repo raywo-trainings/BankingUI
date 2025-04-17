@@ -1,0 +1,43 @@
+<div class="account-details">
+  <div class="account-details-icon">
+    @if (isCurrentAccount(account())) {
+      <fa-icon [icon]="faCreditCard"></fa-icon>
+    }
+    @if (isSavingsAccount(account())) {
+      <fa-icon [icon]="faCoins"></fa-icon>
+    }
+  </div>
+
+  <div class="account-details-info">
+    <div>
+      <h3>{{ account().iban }}</h3>
+      <strong>{{ account().owner | fullName }}</strong>
+    </div>
+  </div>
+
+  <div class="account-details-additional-info">
+    @let acc = account();
+    @if (isCurrentAccount(acc)) {
+      <app-current-account-additional-info [account]="acc"/>
+    }
+    @if (isSavingsAccount(acc)) {
+      <app-savings-account-additional-info [account]="acc"/>
+    }
+  </div>
+
+  <div class="account-details-balance">
+    {{ account().balance | currency: "EUR" }}
+  </div>
+
+  <div class="account-details-buttons">
+    <button app-edit-button
+            caption="Konto bearbeiten"
+            [showCaption]="false"
+            (editClick)="onEditClick()">
+    </button>
+    <button app-delete-button
+            caption="Konto schließen"
+            (deleteConfirmed)="onDeleteClick()">
+    </button>
+  </div>
+</div>

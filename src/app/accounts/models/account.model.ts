@@ -14,8 +14,8 @@ export interface Account {
 
 export interface CurrentAccount extends Account {
 
-  limit: number;
-  interestRate: number;
+  overdraftLimit: number;
+  overdraftInterestRate: number;
 
 }
 
@@ -31,7 +31,8 @@ export interface CurrentAccountWriteDTO {
 
   ownerId: number;
   limit: number;
-  interestRate: number;
+  overdraftLimit: number;
+  overdraftInterestRate: number;
 
 }
 

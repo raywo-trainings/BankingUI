@@ -1,1 +1,21 @@
-<p>account-list works!</p>
+<div class="hstack gap-2 justify-content-between mb-3">
+  <h2>Konten</h2>
+
+  <div>
+    <button app-add-button
+            caption="Konto anlegen"
+            (addClick)="addAccount()">
+    </button>
+  </div>
+</div>
+
+<div>
+  <div class="list-group">
+    @for (account of accounts$ | async; track account.iban) {
+      <a routerLink="/accounts/{{ account.iban }}"
+         class="list-group-item list-group-item-action">
+        <app-account-row-view [account]="account" />
+      </a>
+    }
+  </div>
+</div>
