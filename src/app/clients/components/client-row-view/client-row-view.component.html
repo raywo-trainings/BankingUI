@@ -1,7 +1,23 @@
-<div class="hstack gap-2 justify-content-between">
-  <strong>{{ client().firstname }} {{ client().lastname }}</strong>
+<div class="client-details">
+  <div class="client-details-info">
+    <h3 class="client-details-name">{{ client().firstname }} {{ client().lastname }}</h3>
+    <button type="button" class="btn btn-secondary">
+      <div class="client-details-accounts">
+        Konten: <strong>{{ accountCount ? accountCount : "keine Konten" }}</strong>
+        <fa-icon [icon]="faChevronDown" class="ms-3"></fa-icon>
+      </div>
+    </button>
+  </div>
 
-  <div class="hstack gap-2">
+  <div class="client-details-buttons">
+    <div class="client-details-net-worth">
+      Gesamtguthaben:<br>
+      <strong [class.debit-amount]="netWorth < 0"
+              [class.credit-amount]="netWorth > 0">
+        {{ netWorth | currency: "EUR" }}
+      </strong>
+    </div>
+
     <button app-edit-button
             caption="Kunde bearbeiten"
             [showCaption]="false"

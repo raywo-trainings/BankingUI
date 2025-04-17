@@ -1,0 +1,43 @@
+.client-details {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+
+  .client-details-info {
+    grid-area: info;
+
+    .client-details-name {
+      font-size: 1.2rem;
+    }
+
+    .client-details-accounts {
+      font-weight: 300;
+
+      strong {
+        font-weight: 500;
+      };
+    }
+  }
+
+  .client-details-net-worth {
+    grid-area: net-worth;
+
+    margin-inline-end: 2rem;
+
+    font-weight: 300;
+    text-align: end;
+
+    strong {
+      //font-weight: 500;
+      font-size: 1.25rem;
+    }
+  }
+
+  .client-details-buttons {
+    grid-area: buttons;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}

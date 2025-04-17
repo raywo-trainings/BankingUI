@@ -5,7 +5,16 @@
 @use 'bootstrap/scss/bootstrap';
 @use "app/styles/layout";
 @use "app/styles/start";
+@use "app/styles/clients";
 
 strong {
   font-weight: 600;
+}
+
+.debit-amount {
+  color: #dc3545;
+}
+
+.credit-amount {
+  color: var(--bs-primary);
 }
