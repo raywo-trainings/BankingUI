@@ -1,21 +1,22 @@
-import {Component, inject, input, OnDestroy, signal} from "@angular/core";
-import {CurrencyPipe} from "@angular/common";
-import {DeleteButtonComponent} from "../../../common/components/delete-button/delete-button.component";
-import {EditButtonComponent} from "../../../common/components/edit-button/edit-button.component";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {Account} from "../../models/account.model";
-import {faCoins} from "@fortawesome/free-solid-svg-icons";
-import {faCreditCard} from "@fortawesome/free-regular-svg-icons";
-import {CurrentAccountAdditionalInfoComponent} from "../current-account-additional-info/current-account-additional-info.component";
-import {SavingsAccountAdditionalInfoComponent} from "../savings-account-additional-info/savings-account-additional-info.component";
-import {FullNamePipe} from "../../../clients/pipes/fullName.pipe";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {CurrentAccountEditComponent} from "../current-account-edit/current-account-edit.component";
-import {SavingsAccountEditComponent} from "../savings-account-edit/savings-account-edit.component";
-import {AccountsService} from "../../services/accounts.service";
-import {Subscription} from "rxjs";
-import {isCurrentAccount} from "../../models/current-account.model";
-import {isSavingsAccount} from "../../models/savings-account.model";
+import { Component, inject, input, OnDestroy, signal } from "@angular/core";
+import { CurrencyPipe } from "@angular/common";
+import { DeleteButtonComponent } from "../../../common/components/delete-button/delete-button.component";
+import { EditButtonComponent } from "../../../common/components/edit-button/edit-button.component";
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { Account } from "../../models/account.model";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
+import { CurrentAccountAdditionalInfoComponent } from "../current-account-additional-info/current-account-additional-info.component";
+import { SavingsAccountAdditionalInfoComponent } from "../savings-account-additional-info/savings-account-additional-info.component";
+import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { CurrentAccountEditComponent } from "../current-account-edit/current-account-edit.component";
+import { SavingsAccountEditComponent } from "../savings-account-edit/savings-account-edit.component";
+import { AccountsService } from "../../services/accounts.service";
+import { Subscription } from "rxjs";
+import { isCurrentAccount } from "../../models/current-account.model";
+import { isSavingsAccount } from "../../models/savings-account.model";
+import { IbanPipe } from "../../pipes/iban.pipe";
 
 
 @Component({
@@ -27,7 +28,8 @@ import {isSavingsAccount} from "../../models/savings-account.model";
     FaIconComponent,
     FullNamePipe,
     CurrentAccountAdditionalInfoComponent,
-    SavingsAccountAdditionalInfoComponent
+    SavingsAccountAdditionalInfoComponent,
+    IbanPipe
   ],
   templateUrl: "./account-row-view.component.html"
 })

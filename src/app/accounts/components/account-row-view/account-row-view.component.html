@@ -1,5 +1,5 @@
-<div class="account-details">
-  <div class="account-details-icon">
+<div class="account-row">
+  <div class="account-row-icon">
     @if (isCurrentAccount(account())) {
       <fa-icon [icon]="faCreditCard"></fa-icon>
     }
@@ -8,28 +8,28 @@
     }
   </div>
 
-  <div class="account-details-info">
+  <div class="account-row-info">
     <div>
-      <h3>{{ account().iban }}</h3>
+      <h3>{{ account().iban | iban }}</h3>
       <strong>{{ account().owner | fullName }}</strong>
     </div>
   </div>
 
-  <div class="account-details-additional-info">
+  <div class="account-row-additional-info">
     @let acc = account();
     @if (isCurrentAccount(acc)) {
-      <app-current-account-additional-info [account]="acc"/>
+      <app-current-account-additional-info [account]="acc" />
     }
     @if (isSavingsAccount(acc)) {
-      <app-savings-account-additional-info [account]="acc"/>
+      <app-savings-account-additional-info [account]="acc" />
     }
   </div>
 
-  <div class="account-details-balance">
+  <div class="account-row-balance">
     {{ account().balance | currency: "EUR" }}
   </div>
 
-  <div class="account-details-buttons">
+  <div class="account-row-buttons">
     <button app-edit-button
             caption="Konto bearbeiten"
             [showCaption]="false"
@@ -45,7 +45,7 @@
 
 <ng-template #deleteMessage>
   <p>
-    Soll der Konto „<strong>{{ account().iban }}</strong>“ von {{account().owner | fullName}}
+    Soll der Konto „<strong>{{ account().iban }}</strong>“ von {{ account().owner | fullName }}
     wirklich gelöscht werden?
   </p>
   <p class="text-danger">Die Aktion kann nicht rückgängig gemacht werden!</p>

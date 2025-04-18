@@ -5,8 +5,12 @@ import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
 import { Observable, tap } from "rxjs";
 import { Entry } from "../../../entries/models/entry.model";
 import { EntryService } from "../../../entries/services/entry.service";
-import { AsyncPipe } from "@angular/common";
-import { EntryRowComponent } from "../../../entries/components/entry-row/entry-row.component";
+import { AsyncPipe, CurrencyPipe, DecimalPipe } from "@angular/common";
+import { IbanPipe } from "../../pipes/iban.pipe";
+import { EntryListComponent } from "../../../entries/components/entry-list/entry-list.component";
+import { EditButtonComponent } from "../../../common/components/edit-button/edit-button.component";
+import { isCurrentAccount } from "../../models/current-account.model";
+import { isSavingsAccount } from "../../models/savings-account.model";
 
 
 @Component({
@@ -14,7 +18,11 @@ import { EntryRowComponent } from "../../../entries/components/entry-row/entry-r
   imports: [
     FullNamePipe,
     AsyncPipe,
-    EntryRowComponent
+    IbanPipe,
+    CurrencyPipe,
+    EntryListComponent,
+    EditButtonComponent,
+    DecimalPipe
   ],
   templateUrl: "./account-details.component.html"
 })
@@ -44,4 +52,7 @@ export class AccountDetailsComponent {
     });
   }
 
+
+  protected readonly isCurrentAccount = isCurrentAccount;
+  protected readonly isSavingsAccount = isSavingsAccount;
 }
