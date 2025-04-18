@@ -1,6 +1,6 @@
 import { Component, input } from "@angular/core";
-import { CurrentAccount } from "../../models/account.model";
 import { CurrencyPipe, DecimalPipe } from "@angular/common";
+import { CurrentAccount } from "../../models/current-account.model";
 
 
 @Component({

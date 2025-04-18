@@ -44,7 +44,6 @@ export class ClientRowViewComponent implements OnDestroy {
       this.subscriptions.push(
         this.accountService.getAccountsForClient(client)
           .subscribe(accounts => {
-            console.log(accounts);
             this.clientAccounts = accounts;
             this.accountCount = accounts.length;
             this.netWorth = accounts.reduce((sum, account) => {

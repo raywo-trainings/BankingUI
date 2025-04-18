@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Client } from "../models/client.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { baseUrl } from "../../common/helper/base-url.helper";
+import { fullName } from "../pipes/fullName.pipe";
 
 
 @Injectable({
@@ -71,7 +72,10 @@ export class ClientService {
 
 
   private set clients(value: Client[]) {
-    this._clients.next(value);
+    const sortedClients = value.sort((a, b) => {
+      return fullName(a).toLowerCase().localeCompare(fullName(b).toLowerCase());
+    });
+    this._clients.next(sortedClients);
   }
 
 

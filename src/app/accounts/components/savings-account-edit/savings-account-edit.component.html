@@ -1,0 +1,74 @@
+<div class="modal-header">
+  <h3 class="modal-title">
+    @if (isEdit()) {
+      Sparkonto bearbeiten
+    } @else {
+      Sparkonto anlegen
+    }
+  </h3>
+  <button type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="onCancel()">
+  </button>
+</div>
+
+<form #form="ngForm">
+  <div class="modal-body">
+    <div class="form-floating mb-3"
+         [class.was-validated]="ibanField.dirty || ibanField.touched">
+      <input type="text"
+             class="form-control"
+             id="ibanInput"
+             name="iban"
+             placeholder="IBAN"
+             required
+             minlength="2"
+             maxlength="100"
+             [(ngModel)]="iban"
+             disabled
+             #ibanField="ngModel">
+      <label for="ibanInput">IBAN</label>
+      <div class="invalid-feedback">
+        Bitte geben Sie einen Vornamen mit 2–100 Zeichen ein.
+      </div>
+    </div>
+
+    <app-owner-select [(owner)]="owner" />
+
+    <div class="mb-3"
+         [class.was-validated]="interestRateField.dirty || interestRateField.touched">
+      <label for="limitInput" class="form-label">Habenzinssatz</label>
+      <div class="input-group">
+        <input type="number"
+               class="form-control"
+               id="interestRateInput"
+               name="interestRate"
+               placeholder="Habenzinssatz, z.B. 2,5"
+               required
+               min="0"
+               step="0.01"
+               [(ngModel)]="interestRate"
+               #interestRateField="ngModel">
+        <span class="input-group-text">%</span>
+        <div class="invalid-feedback">
+          Bitte geben Sie einen Betrag größer 0 mit maximal zwei Kommastellen ein.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-primary me-2"
+            (click)="onCancel()">
+      Abbrechen
+    </button>
+    <button type="submit"
+            class="btn btn-primary"
+            (click)="onSubmit()"
+            [disabled]="form.invalid">
+      Speichern
+    </button>
+  </div>
+</form>
