@@ -35,27 +35,7 @@
       </div>
     </div>
 
-    <div class="form-floating mb-3"
-         [class.was-validated]="ownerField.dirty || ownerField.touched">
-      <input type="search"
-             class="form-control"
-             id="ownerInput"
-             name="owner"
-             placeholder="Kontoinhaber"
-             required
-             minlength="2"
-             maxlength="100"
-             [(ngModel)]="owner"
-             [ngbTypeahead]="ownerSearch"
-             [resultFormatter]="ownerFormatter"
-             [inputFormatter]="ownerFormatter"
-             (focus)="ownerFocus$.next($any($event).target.value)"
-             (click)="ownerClick$.next($any($event).target.value)"
-             [editable]="false"
-             #ownerField="ngModel"
-             #ownerTypeahead="ngbTypeahead">
-      <label for="ownerInput">Kontoinhaber</label>
-    </div>
+    <app-owner-select [(owner)]="owner"/>
 
     <div class="form-floating mb-3"
          [class.was-validated]="limitField.dirty || limitField.touched">

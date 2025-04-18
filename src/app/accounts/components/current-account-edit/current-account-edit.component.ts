@@ -1,31 +1,21 @@
-import { Component, effect, inject, input, OnInit, ViewChild } from "@angular/core";
-import { NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
+import { Component, effect, input } from "@angular/core";
 import { AccountType, CurrentAccount } from "../../models/account.model";
-import { Client, createEmptyClient } from "../../../clients/models/client.model";
+import { createEmptyClient } from "../../../clients/models/client.model";
 import { FormsModule } from "@angular/forms";
-import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject, switchMap } from "rxjs";
-import { ClientService } from "../../../clients/services/client.service";
-import { fullName } from "../../../clients/pipes/fullName.pipe";
+import { OwnerSelectComponent } from "../owner-select/owner-select.component";
+import { JsonPipe } from "@angular/common";
 
 
 @Component({
   selector: "app-current-account-edit",
   imports: [
     FormsModule,
-    NgbTypeahead
+    OwnerSelectComponent,
+    JsonPipe
   ],
   templateUrl: "./current-account-edit.component.html"
 })
-export class CurrentAccountEditComponent implements OnInit {
-
-  // private readonly modal = inject(NgbActiveModal);
-  private clientService = inject(ClientService);
-
-  @ViewChild("ownerTypeahead", { static: true })
-  private ownerTypeahead!: NgbTypeahead;
-
-  protected ownerFocus$ = new Subject<string>();
-  protected ownerClick$ = new Subject<string>();
+export class CurrentAccountEditComponent {
 
   protected iban = "";
   protected balance = 0;
@@ -62,47 +52,6 @@ export class CurrentAccountEditComponent implements OnInit {
   }
 
 
-  public ngOnInit() {
-    this.clientService.updateClients();
-  }
-
-
-  protected ownerFormatter = (client: Client): string => {
-    return fullName(client);
-  };
-
-  protected ownerSearch: OperatorFunction<string, readonly Client[]> =
-    (text$: Observable<string>): Observable<Client[]> => {
-      const debouncedText$ = text$
-        .pipe(
-          debounceTime(200),
-          distinctUntilChanged()
-        );
-      const clicksWithClosedPopup$ = this.ownerClick$
-        .pipe(filter(() => !this.ownerTypeahead.isPopupOpen()));
-      const inputFocus$ = this.ownerFocus$;
-
-      return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-        switchMap(term => {
-          console.log(term);
-          if (term === "") {
-            return this.clientService.clients$
-              .pipe(
-                map(clients => [...clients].splice(0, 10))
-              );
-          }
-
-          return this.clientService.clients$
-            .pipe(
-              map(clients => clients.filter(client =>
-                fullName(client).toLowerCase().includes(term.toLowerCase())
-              ))
-            );
-        })
-      );
-    };
-
-
   protected isEdit(): boolean {
     return this.account() !== undefined;
   }
@@ -117,6 +66,4 @@ export class CurrentAccountEditComponent implements OnInit {
 
   }
 
-
-  protected readonly focus = focus;
 }

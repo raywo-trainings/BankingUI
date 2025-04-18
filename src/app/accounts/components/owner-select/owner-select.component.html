@@ -1,0 +1,21 @@
+<div class="form-floating mb-3"
+     [class.was-validated]="ownerField.dirty || ownerField.touched">
+  <input type="search"
+         class="form-control"
+         id="ownerInput"
+         name="owner"
+         placeholder="Kontoinhaber"
+         required
+         minlength="2"
+         maxlength="100"
+         [(ngModel)]="owner"
+         [ngbTypeahead]="search"
+         [resultFormatter]="formatter"
+         [inputFormatter]="formatter"
+         (focus)="focus$.next($any($event).target.value)"
+         (click)="click$.next($any($event).target.value)"
+         [editable]="false"
+         #ownerField="ngModel"
+         #typeahead="ngbTypeahead">
+  <label for="ownerInput">Kontoinhaber</label>
+</div>
