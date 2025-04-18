@@ -1,7 +1,7 @@
 .account-details {
   display: grid;
   grid-template-areas: "icon info add-info balance buttons";
-  grid-template-columns: auto 1fr 17ch 25ch auto;
+  grid-template-columns: 4ch 1fr 17ch 25ch auto;
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
@@ -13,7 +13,6 @@
   .account-details-icon {
     grid-area: icon;
     font-size: 2.5rem;
-    width: 2ch;
   }
 
   .account-details-info {
