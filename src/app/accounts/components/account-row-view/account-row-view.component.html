@@ -30,11 +30,7 @@
   </div>
 
   <div class="account-row-buttons">
-    <button app-edit-button
-            caption="Konto bearbeiten"
-            [showCaption]="false"
-            (editClick)="onEditClick()">
-    </button>
+    <app-edit-account-button [account]="account()" [showCaption]="false" />
     <button app-delete-button
             caption="Konto schließen"
             [confirmationMessage]="deleteMessage"

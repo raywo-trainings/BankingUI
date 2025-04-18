@@ -39,6 +39,8 @@ export function savingsAccountDtoFromAccount(account: Account): SavingsAccountWr
   };
 }
 
-export function isSavingsAccount(account: Account): account is SavingsAccount {
+export function isSavingsAccount(account?: Account | null): account is SavingsAccount {
+  if (!account) return false;
+
   return account.type === "savings";
 }

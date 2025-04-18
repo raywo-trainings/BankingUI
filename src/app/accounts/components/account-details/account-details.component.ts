@@ -1,37 +1,41 @@
-import { Component, effect, inject, input } from "@angular/core";
+import { Component, effect, inject, input, OnDestroy } from "@angular/core";
 import { Account } from "../../models/account.model";
 import { AccountsService } from "../../services/accounts.service";
 import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
-import { Observable, tap } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Entry } from "../../../entries/models/entry.model";
 import { EntryService } from "../../../entries/services/entry.service";
-import { AsyncPipe, CurrencyPipe, DecimalPipe } from "@angular/common";
+import { CurrencyPipe, DecimalPipe } from "@angular/common";
 import { IbanPipe } from "../../pipes/iban.pipe";
 import { EntryListComponent } from "../../../entries/components/entry-list/entry-list.component";
-import { EditButtonComponent } from "../../../common/components/edit-button/edit-button.component";
 import { isCurrentAccount } from "../../models/current-account.model";
 import { isSavingsAccount } from "../../models/savings-account.model";
+import { EditAccountButtonComponent } from "../edit-account-button/edit-account-button.component";
 
 
 @Component({
   selector: "app-account-details",
   imports: [
     FullNamePipe,
-    AsyncPipe,
     IbanPipe,
     CurrencyPipe,
     EntryListComponent,
-    EditButtonComponent,
-    DecimalPipe
+    DecimalPipe,
+    EditAccountButtonComponent
   ],
   templateUrl: "./account-details.component.html"
 })
-export class AccountDetailsComponent {
+export class AccountDetailsComponent implements OnDestroy {
 
   private readonly accountService = inject(AccountsService);
   private readonly entryService = inject(EntryService);
 
-  protected account$?: Observable<Account>;
+  private readonly subscriptions: Subscription[] = [];
+
+  protected readonly isCurrentAccount = isCurrentAccount;
+  protected readonly isSavingsAccount = isSavingsAccount;
+
+  protected account?: Account;
   protected entries$?: Observable<Entry[]>;
 
   public iban = input.required<string>();
@@ -41,18 +45,23 @@ export class AccountDetailsComponent {
     effect(() => {
       const iban = this.iban();
 
-      this.account$ = this.accountService.getAccount(iban)
-        .pipe(
-          tap(account => {
-              this.entries$ = this.entryService.getEntriesForAccount(account);
-            }
-          )
-        );
-
+      this.subscriptions.push(
+        this.accountService.getAccount(iban)
+          .subscribe(account => {
+            this.account = account;
+            this.entries$ = this.entryService.getEntriesForAccount(account);
+          })
+      );
     });
   }
 
 
-  protected readonly isCurrentAccount = isCurrentAccount;
-  protected readonly isSavingsAccount = isSavingsAccount;
+  public ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+
+  protected onAccountUpdated(account: Account) {
+    this.account = account;
+  }
 }
