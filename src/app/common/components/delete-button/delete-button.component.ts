@@ -44,6 +44,7 @@ export class DeleteButtonComponent implements OnInit {
 
   @HostListener("click", ["$event"])
   protected onClickHost(event: MouseEvent) {
+    event.preventDefault();
     event.stopPropagation();
 
     const options: NgbModalOptions = {

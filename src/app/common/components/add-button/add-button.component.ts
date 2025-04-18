@@ -24,6 +24,7 @@ export class AddButtonComponent {
 
   @HostListener("click", ["$event"])
   protected onAdd(event: MouseEvent) {
+    event.preventDefault();
     event.stopPropagation();
     this.addClick.emit();
   }

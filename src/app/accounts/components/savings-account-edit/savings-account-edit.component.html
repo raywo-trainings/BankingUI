@@ -1,9 +1,9 @@
 <div class="modal-header">
   <h3 class="modal-title">
     @if (isEdit()) {
-      Girokonto bearbeiten
+      Sparkonto bearbeiten
     } @else {
-      Girokonto anlegen
+      Sparkonto anlegen
     }
   </h3>
   <button type="button"
@@ -25,7 +25,6 @@
              required
              minlength="2"
              maxlength="100"
-             autofocus
              [(ngModel)]="iban"
              disabled
              #ibanField="ngModel">
@@ -37,36 +36,19 @@
 
     <app-owner-select [(owner)]="owner" />
 
-    <div class="form-floating mb-3"
-         [class.was-validated]="limitField.dirty || limitField.touched">
-      <input type="number"
-             class="form-control"
-             id="limitInput"
-             name="overdraftLimit"
-             placeholder="Dispokredit"
-             required
-             min="0"
-             [(ngModel)]="overdraftLimit"
-             #limitField="ngModel">
-      <label for="limitInput">Dispokredit</label>
-      <div class="invalid-feedback">
-        Bitte geben Sie einen Betrag größer 0 ein.
-      </div>
-    </div>
-
     <div class="mb-3"
          [class.was-validated]="interestRateField.dirty || interestRateField.touched">
-      <label for="limitInput" class="form-label">Dispozinssatz</label>
+      <label for="limitInput" class="form-label">Habenzinssatz</label>
       <div class="input-group">
         <input type="number"
                class="form-control"
                id="interestRateInput"
                name="interestRate"
-               placeholder="Dispozinssatz, z.B. 2,5"
+               placeholder="Habenzinssatz, z.B. 2,5"
                required
                min="0"
                step="0.01"
-               [(ngModel)]="overdraftInterestRate"
+               [(ngModel)]="interestRate"
                #interestRateField="ngModel">
         <span class="input-group-text">%</span>
         <div class="invalid-feedback">

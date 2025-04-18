@@ -1,32 +1,31 @@
 import { Component, effect, inject, input } from "@angular/core";
-import { AccountType } from "../../models/account.model";
-import { createEmptyClient } from "../../../clients/models/client.model";
 import { FormsModule } from "@angular/forms";
 import { OwnerSelectComponent } from "../owner-select/owner-select.component";
+import { createEmptyClient } from "../../../clients/models/client.model";
+import { AccountType } from "../../models/account.model";
+import { createEmptySavingsAccount, SavingsAccount } from "../../models/savings-account.model";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { createEmptyCurrentAccount, CurrentAccount } from "../../models/current-account.model";
 
 
 @Component({
-  selector: "app-current-account-edit",
+  selector: "app-savings-account-edit",
   imports: [
     FormsModule,
     OwnerSelectComponent
   ],
-  templateUrl: "./current-account-edit.component.html"
+  templateUrl: "./savings-account-edit.component.html"
 })
-export class CurrentAccountEditComponent {
+export class SavingsAccountEditComponent {
 
   private readonly modal = inject(NgbActiveModal);
 
   protected iban?: string = "";
   protected balance = 0;
   protected owner = createEmptyClient();
-  protected type: AccountType = "current";
-  protected overdraftLimit?: number;
-  protected overdraftInterestRate?: number;
+  protected type: AccountType = "savings";
+  protected interestRate?: number;
 
-  public account = input<CurrentAccount>(createEmptyCurrentAccount());
+  public account = input<SavingsAccount>(createEmptySavingsAccount());
 
 
   constructor() {
@@ -38,8 +37,7 @@ export class CurrentAccountEditComponent {
         this.balance = 0;
         this.owner = createEmptyClient();
         this.type = "current";
-        this.overdraftLimit = undefined;
-        this.overdraftInterestRate = undefined;
+        this.interestRate = undefined;
 
         return;
       }
@@ -48,8 +46,7 @@ export class CurrentAccountEditComponent {
       this.balance = account.balance;
       this.owner = account.owner;
       this.type = account.type;
-      this.overdraftLimit = account.overdraftLimit;
-      this.overdraftInterestRate = account.overdraftInterestRate;
+      this.interestRate = account.interestRate;
     });
   }
 
@@ -65,11 +62,10 @@ export class CurrentAccountEditComponent {
 
 
   protected onSubmit() {
-    const newAccount: CurrentAccount = {
+    const newAccount: SavingsAccount = {
       ...this.account(),
       owner: this.owner,
-      overdraftInterestRate: this.overdraftInterestRate ?? 0,
-      overdraftLimit: this.overdraftLimit ?? 0
+      interestRate: this.interestRate ?? 0
     };
 
     this.modal.close(newAccount);

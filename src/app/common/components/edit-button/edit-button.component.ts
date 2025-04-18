@@ -25,6 +25,7 @@ export class EditButtonComponent {
 
   @HostListener("click", ["$event"])
   protected onAdd(event: MouseEvent) {
+    event.preventDefault();
     event.stopPropagation();
     this.editClick.emit();
   }
