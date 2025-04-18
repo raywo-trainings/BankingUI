@@ -37,11 +37,21 @@ export class AccountsService {
   }
 
 
-  // public addAccount(account: Account): Observable<Account> {
-  //   const headers = new HttpHeaders({
-  //     "X-Error-Context": "Konto konnte nicht angelegt werden"
-  //   });
-  // }
+  public addAccount(account: Account): Observable<Account> {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Konto konnte nicht angelegt werden"
+    });
+
+    const baseUrl = this.getBaseUrlForAccount(account);
+    const acc = accountDTOFromAccount(account);
+
+    return this.http.post<Account>(baseUrl, acc, { headers })
+      .pipe(
+        tap(newAccount => {
+          this.accounts = this.accounts.concat(newAccount);
+        })
+      );
+  }
 
 
   public updateAccount(account: Account): Observable<Account> {
@@ -57,6 +67,22 @@ export class AccountsService {
         tap(updatedAccount => {
           this.accounts = this.accounts
             .map(a => a.iban === updatedAccount.iban ? updatedAccount : a);
+        })
+      );
+  }
+
+
+  public closeAccount(account: Account): Observable<void> {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Konto konnte nicht geschlossen werden"
+    });
+
+    const baseUrl = this.getBaseUrlForAccount(account);
+
+    return this.http.delete<void>(baseUrl, { headers })
+      .pipe(
+        tap(() => {
+          this.accounts = this.accounts.filter(a => a.iban !== account.iban);
         })
       );
   }
@@ -95,7 +121,13 @@ export class AccountsService {
 
 
   private set accounts(value: Account[]) {
-    this._accounts.next(value);
+    const sortedAccounts = value.sort((a, b) => {
+      const aAccNo = a.iban!.substring(12);
+      const bAccNo = b.iban!.substring(12);
+
+      return aAccNo.localeCompare(bAccNo);
+    });
+    this._accounts.next(sortedAccounts);
   }
 
 }

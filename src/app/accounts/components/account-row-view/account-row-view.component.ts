@@ -70,7 +70,7 @@ export class AccountRowViewComponent implements OnDestroy {
 
 
   protected onDeleteClick() {
-
+    this.accountService.closeAccount(this.account()).subscribe();
   }
 
 }

@@ -3,8 +3,13 @@
 
   <div>
     <button app-add-button
-            caption="Konto anlegen"
-            (addClick)="addAccount()">
+            caption="Girokonto anlegen"
+            class="me-2"
+            (addClick)="addCurrentAccount()">
+    </button>
+    <button app-add-button
+            caption="Sparkonto anlegen"
+            (addClick)="addSavingsAccount()">
     </button>
   </div>
 </div>
