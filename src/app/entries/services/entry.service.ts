@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Account } from "../../accounts/models/account.model";
 import { Observable, of } from "rxjs";
-import { Entry } from "../models/entry.model";
+import { Entry, EntryWriteDTO } from "../models/entry.model";
 import { baseUrl } from "../../common/helper/base-url.helper";
 
 
@@ -25,8 +25,40 @@ export class EntryService {
   }
 
 
-  private getBaseUrl(iban: string) {
+  public deposit(account: Account, entry: EntryWriteDTO) {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Einzahlung konnte nicht getätigt werden"
+    });
+
+    return this.http.post<Entry>(
+      this.getDepositUrl(account.iban!), entry, { headers }
+    );
+  }
+
+
+  public withdraw(account: Account, entry: EntryWriteDTO) {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Auszahlung konnte nicht getätigt werden"
+    });
+
+    return this.http.post<Entry>(
+      this.getWithdrawUrl(account.iban!), entry, { headers }
+    );
+  }
+
+
+  private getBaseUrl(iban: string): string {
     return `${baseUrl}/accounts/${iban}/entries`;
+  }
+
+
+  private getDepositUrl(iban: string): string {
+    return `${baseUrl}/accounts/${iban}/deposits`;
+  }
+
+
+  private getWithdrawUrl(iban: string): string {
+    return `${baseUrl}/accounts/${iban}/withdrawals`;
   }
 
 }

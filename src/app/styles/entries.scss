@@ -6,24 +6,6 @@
   justify-content: space-between;
   align-items: center;
 
-  .icon {
-    --icon-font-size: 1rem;
-    --icon-size: calc(var(--icon-font-size) * 2);
-
-    grid-area: icon;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var( --icon-font-size);
-    aspect-ratio: 1;
-    width: var(--icon-size);
-    height: var(--icon-size);
-
-    padding-bottom: calc(var(--icon-size) * 0.05);
-    border-radius: 50%;
-    border: 1px solid;
-  }
 
   .id {
     grid-area: id;
@@ -41,23 +23,61 @@
   .date {
     grid-area: date;
   }
+
+  .entry-icon {
+    --icon-line-offset: 0;
+    grid-area: icon;
+  }
+}
+
+.entry-icon {
+  --icon-font-size: 1.2rem;
+  --icon-size: calc(var(--icon-font-size) * 2);
+  --icon-line-offset: -0.25rem;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--icon-font-size);
+
+  position: relative;
+  top: var(--icon-line-offset);
+
+  aspect-ratio: 1;
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  padding-bottom: calc(var(--icon-size) * 0.075);
+  border-radius: 50%;
+  border: 1px solid;
 }
 
 .deposit {
-  background-color: rgba(40, 167, 69, 0.2); // leicht transparentes Grün
-  color: #28a745; // passendes, sattes Grün für Text
+  background-color: var(--deposit-bg-color);
+  color: var(--deposit-color);
 }
 
 .withdraw {
-  background-color: rgba(220, 53, 69, 0.2); // leicht transparentes Rot
-  color: #dc3545; // passendes, klares Rot für Text
+  background-color: var(--withdraw-bg-color);
+  color: var(--withdraw-color);
 }
 
+.btn-deposit {
+  @extend .deposit;
 
-//.deposit {
-//  color: var(--deposit-color);
-//}
-//
-//.withdraw {
-//  color: var(--withdraw-color);
-//}
+  --bs-btn-hover-color: var(--deposit-color-emphasis);
+  --bs-btn-hover-bg: var(--deposit-bg-color-emphasis);
+  --bs-btn-hover-border-color: var(--deposit-color);
+
+  border: 1px solid var(--deposit-color);
+}
+
+.btn-withdraw {
+  @extend .withdraw;
+
+  --bs-btn-hover-color: var(--withdraw-color-emphasis);
+  --bs-btn-hover-bg: var(--withdraw-bg-color-emphasis);
+  --bs-btn-hover-border-color: var(--withdraw-color);
+
+  border: 1px solid var(--withdraw-color);
+}

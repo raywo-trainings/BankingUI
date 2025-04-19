@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h3 class="modal-title">
+    <i app-entry-icon
+       class="me-2"
+       [entryType]="type()"
+       [colorize]="false"></i>
+    @switch (type()) {
+      @case ("deposit") {
+        Einzahlen
+      }
+      @case ("withdraw") {
+        Auszahlen
+      }
+      @default {
+        Unbekannter Buchungstyp
+      }
+    }
+  </h3>
+  <button type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="onCancel()">
+  </button>
+</div>
+
+<form #form="ngForm">
+  <div class="modal-body">
+    <label for="amountInput" class="form-label">Betrag</label>
+    <div class="input-group mb-3"
+         [class.was-validated]="amountField.touched || amountField.dirty">
+      <input type="number"
+             class="form-control"
+             id="amountInput"
+             name="amount"
+             placeholder="Betrag"
+             step="0.01"
+             autofocus
+             required
+             min="0.01"
+             [(ngModel)]="amount"
+             #amountField="ngModel">
+      <span class="input-group-text">€</span>
+
+      <div class="invalid-feedback">
+        Bitte gib einen positiven Betrag ein.
+      </div>
+    </div>
+
+    <div class="form-floating mb-3"
+         [class.was-validated]="purposeField.touched || purposeField.dirty">
+      <input type="text"
+             class="form-control"
+             id="purposeInput"
+             name="purpose"
+             placeholder="Zweck"
+             minlength="2"
+             maxlength="255"
+             [(ngModel)]="description"
+             #purposeField="ngModel">
+      <label for="purposeInput">Verwendungszweck</label>
+      <div class="invalid-feedback">
+        Bitte geben Sie einen Zweck mit zwischen 2 und 255 Zeichen ein.
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-primary me-2"
+            (click)="onCancel()">
+      Abbrechen
+    </button>
+    <button type="submit"
+            class="btn btn-primary"
+            (click)="onSubmit()"
+            [disabled]="form.invalid">
+      Einzahlen
+    </button>
+  </div>
+</form>

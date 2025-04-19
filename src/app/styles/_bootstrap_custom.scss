@@ -17,8 +17,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap');
 
 :root {
-  --deposit-color: #{vars.$deposit};
-  --withdraw-color: #{vars.$withdraw};
+  --deposit-color: #{vars.$deposit-color};
+  --deposit-color-emphasis: #{vars.$deposit-color-emphasis};
+  --deposit-bg-color: #{vars.$deposit-bg-color};
+  --deposit-bg-color-emphasis: #{vars.$deposit-bg-color-emphasis};
+  --withdraw-color: #{vars.$withdraw-color};
+  --withdraw-color-emphasis: #{vars.$withdraw-color-emphasis};
+  --withdraw-bg-color: #{vars.$withdraw-bg-color};
+  --withdraw-bg-color-emphasis: #{vars.$withdraw-bg-color-emphasis};
 }
 
 .navbar-brand {

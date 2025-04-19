@@ -1,13 +1,13 @@
-import { Component, inject, input, OnDestroy, output, signal } from "@angular/core";
-import { AccountsService } from "../../services/accounts.service";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subscription } from "rxjs";
-import { Account } from "../../models/account.model";
-import { CurrentAccountEditComponent } from "../current-account-edit/current-account-edit.component";
-import { SavingsAccountEditComponent } from "../savings-account-edit/savings-account-edit.component";
-import { isCurrentAccount } from "../../models/current-account.model";
-import { isSavingsAccount } from "../../models/savings-account.model";
-import { EditButtonComponent } from "../../../common/components/edit-button/edit-button.component";
+import {Component, inject, input, model, OnDestroy, signal} from "@angular/core";
+import {AccountsService} from "../../services/accounts.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Subscription} from "rxjs";
+import {Account} from "../../models/account.model";
+import {CurrentAccountEditComponent} from "../current-account-edit/current-account-edit.component";
+import {SavingsAccountEditComponent} from "../savings-account-edit/savings-account-edit.component";
+import {isCurrentAccount} from "../../models/current-account.model";
+import {isSavingsAccount} from "../../models/savings-account.model";
+import {EditButtonComponent} from "../../../common/components/edit-button/edit-button.component";
 
 
 @Component({
@@ -24,10 +24,9 @@ export class EditAccountButtonComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  public account = input.required<Account>();
+  public account = model.required<Account>();
   public caption = input<string>("Konto bearbeiten");
   public showCaption = input<boolean>(true);
-  public accountUpdated = output<Account>();
 
 
   public ngOnDestroy() {
@@ -46,7 +45,7 @@ export class EditAccountButtonComponent implements OnDestroy {
         this.subscriptions.push(
           this.accountService.updateAccount(account)
             .subscribe((account) =>
-              this.accountUpdated.emit(account)
+              this.account.set(account)
             )
         );
       })

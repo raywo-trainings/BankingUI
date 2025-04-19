@@ -9,9 +9,8 @@
 
     <div class="hstack gap-2">
       @if (account) {
-        <app-edit-account-button [account]="account"
-                                 (accountUpdated)="onAccountUpdated($event)" />
-        <app-delete-account-button [account]="account" />
+        <app-edit-account-button [(account)]="account"/>
+        <app-delete-account-button [account]="account"/>
       }
     </div>
   </div>
@@ -29,14 +28,14 @@
         <div>
           <div class="text-muted fw-light">Dispolimit:</div>
           <div class="card-title display-5">
-            {{ account?.overdraftLimit | currency: "EUR" }}
+            {{ account.overdraftLimit | currency: "EUR" }}
           </div>
         </div>
 
         <div>
           <div class="text-muted fw-light">Dispozins:</div>
           <div class="card-title display-5">
-            {{ account?.overdraftInterestRate | number: "1.2-2" }} %
+            {{ account.overdraftInterestRate | number: "1.2-2" }} %
           </div>
         </div>
       }
@@ -45,19 +44,19 @@
         <div>
           <div class="text-muted fw-light">Habenzins:</div>
           <div class="card-title display-5">
-            {{ account?.interestRate | number: "1.2-2" }} %
+            {{ account.interestRate | number: "1.2-2" }} %
           </div>
         </div>
       }
 
       <div class="d-grid gap-2 justify-content-end">
-        <button type="button"
-                class="btn deposit">
-          Einzahlen
+        <button app-deposit-button
+                [account]="account!"
+                (depositSuccess)="onDepositSuccess($event)">
         </button>
-        <button type="button"
-                class="btn  withdraw">
-          Abheben
+        <button app-withdraw-button
+                [account]="account!"
+                (withdrawSuccess)="onWithdrawSuccess($event)">
         </button>
       </div>
     </div>
@@ -67,7 +66,7 @@
     </h3>
 
     <div class="account-details-entry-list ">
-      <app-entry-list [account]="account!" />
+      <app-entry-list [account]="account!"/>
     </div>
   </div>
 </div>

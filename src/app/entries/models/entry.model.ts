@@ -16,7 +16,7 @@ export interface EntryWriteDTO {
 
   amount: number;
   entryDate: Date;
-  description: string;
+  description?: string;
   entryType: EntryType;
 
 }
