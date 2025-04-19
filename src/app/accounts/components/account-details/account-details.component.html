@@ -29,14 +29,14 @@
         <div>
           <div class="text-muted fw-light">Dispolimit:</div>
           <div class="card-title display-5">
-            {{ account?.overdraftLimit | currency: "EUR" }}
+            {{ account.overdraftLimit | currency: "EUR" }}
           </div>
         </div>
 
         <div>
           <div class="text-muted fw-light">Dispozins:</div>
           <div class="card-title display-5">
-            {{ account?.overdraftInterestRate | number: "1.2-2" }} %
+            {{ account.overdraftInterestRate | number: "1.2-2" }} %
           </div>
         </div>
       }
@@ -45,20 +45,14 @@
         <div>
           <div class="text-muted fw-light">Habenzins:</div>
           <div class="card-title display-5">
-            {{ account?.interestRate | number: "1.2-2" }} %
+            {{ account.interestRate | number: "1.2-2" }} %
           </div>
         </div>
       }
 
       <div class="d-grid gap-2 justify-content-end">
-        <button type="button"
-                class="btn deposit">
-          Einzahlen
-        </button>
-        <button type="button"
-                class="btn  withdraw">
-          Abheben
-        </button>
+        <app-deposit-button [account]="account!" />
+        <app-withdraw-button [account]="account!" />
       </div>
     </div>
 

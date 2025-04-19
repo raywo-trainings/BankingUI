@@ -1,17 +1,19 @@
-import { Component, effect, inject, input, OnDestroy } from "@angular/core";
-import { Account } from "../../models/account.model";
-import { AccountsService } from "../../services/accounts.service";
-import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
-import { Observable, Subscription } from "rxjs";
-import { Entry } from "../../../entries/models/entry.model";
-import { EntryService } from "../../../entries/services/entry.service";
-import { CurrencyPipe, DecimalPipe } from "@angular/common";
-import { IbanPipe } from "../../pipes/iban.pipe";
-import { EntryListComponent } from "../../../entries/components/entry-list/entry-list.component";
-import { isCurrentAccount } from "../../models/current-account.model";
-import { isSavingsAccount } from "../../models/savings-account.model";
-import { EditAccountButtonComponent } from "../edit-account-button/edit-account-button.component";
-import { DeleteAccountButtonComponent } from "../delete-account-button/delete-account-button.component";
+import {Component, effect, inject, input, OnDestroy} from "@angular/core";
+import {Account} from "../../models/account.model";
+import {AccountsService} from "../../services/accounts.service";
+import {FullNamePipe} from "../../../clients/pipes/fullName.pipe";
+import {Observable, Subscription} from "rxjs";
+import {Entry} from "../../../entries/models/entry.model";
+import {EntryService} from "../../../entries/services/entry.service";
+import {CurrencyPipe, DecimalPipe} from "@angular/common";
+import {IbanPipe} from "../../pipes/iban.pipe";
+import {EntryListComponent} from "../../../entries/components/entry-list/entry-list.component";
+import {isCurrentAccount} from "../../models/current-account.model";
+import {isSavingsAccount} from "../../models/savings-account.model";
+import {EditAccountButtonComponent} from "../edit-account-button/edit-account-button.component";
+import {DeleteAccountButtonComponent} from "../delete-account-button/delete-account-button.component";
+import {DepositButtonComponent} from "../../../entries/components/deposit-button/deposit-button.component";
+import {WithdrawButtonComponent} from "../../../entries/components/withdraw-button/withdraw-button.component";
 
 
 @Component({
@@ -23,7 +25,9 @@ import { DeleteAccountButtonComponent } from "../delete-account-button/delete-ac
     EntryListComponent,
     DecimalPipe,
     EditAccountButtonComponent,
-    DeleteAccountButtonComponent
+    DeleteAccountButtonComponent,
+    DepositButtonComponent,
+    WithdrawButtonComponent
   ],
   templateUrl: "./account-details.component.html"
 })
