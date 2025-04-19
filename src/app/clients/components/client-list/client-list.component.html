@@ -16,5 +16,27 @@
                            (editClicked)="onClientEdit($event)"
                            (deleteClicked)="onClientDelete($event)" />
     </li>
+  } @empty {
+    <div class="card info-card border-info">
+      <div class="card-header">
+        <h3>Keine Kunden</h3>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">Es sind noch keine Kunden angelegt worden.</h4>
+        <p class="card-text">
+          Eine Bank ohne Kunden ist nichts.
+        </p>
+        <p class="card-text">
+          Erfasse deine Kunden jetzt, um mit der Kontenverwaltung zu beginnen.
+        </p>
+
+        <button app-add-button
+                caption="Lege jetzt deinen ersten Kunden an!"
+                class="me-2"
+                (addClick)="addClient()">
+        </button>
+      </div>
+    </div>
   }
 </ul>

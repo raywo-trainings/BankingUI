@@ -11,6 +11,7 @@ import { Subscription } from "rxjs";
 import { createEmptyCurrentAccount } from "../../models/current-account.model";
 import { SavingsAccountEditComponent } from "../savings-account-edit/savings-account-edit.component";
 import { createEmptySavingsAccount } from "../../models/savings-account.model";
+import { ClientService } from "../../../clients/services/client.service";
 
 
 @Component({
@@ -26,16 +27,19 @@ import { createEmptySavingsAccount } from "../../models/savings-account.model";
 })
 export class AccountListComponent implements OnInit, OnDestroy {
 
+  private readonly clientService = inject(ClientService);
   private readonly accountService = inject(AccountsService);
   private readonly modalService = inject(NgbModal);
 
   private subscriptions: Subscription[] = [];
 
   protected readonly accounts$ = this.accountService.accounts$;
+  protected readonly clients$ = this.clientService.clients$;
 
 
   public ngOnInit() {
     this.accountService.updateAccounts();
+    this.clientService.updateClients();
   }
 
 
