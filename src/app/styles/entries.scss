@@ -23,24 +23,31 @@
   .date {
     grid-area: date;
   }
+
+  .entry-icon {
+    --icon-line-offset: 0;
+    grid-area: icon;
+  }
 }
 
-
 .entry-icon {
-  --icon-font-size: 1rem;
+  --icon-font-size: 1.2rem;
   --icon-size: calc(var(--icon-font-size) * 2);
+  --icon-line-offset: -0.25rem;
 
-  grid-area: icon;
-
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   font-size: var(--icon-font-size);
+
+  position: relative;
+  top: var(--icon-line-offset);
+
   aspect-ratio: 1;
   width: var(--icon-size);
   height: var(--icon-size);
 
-  padding-bottom: calc(var(--icon-size) * 0.05);
+  padding-bottom: calc(var(--icon-size) * 0.075);
   border-radius: 50%;
   border: 1px solid;
 }

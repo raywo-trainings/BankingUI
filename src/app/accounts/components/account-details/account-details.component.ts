@@ -67,8 +67,25 @@ export class AccountDetailsComponent implements OnDestroy {
   }
 
 
-  protected onAccountUpdated(account: Account) {
-    this.account = account;
+  public onDepositSuccess(account: Account) {
+    this.subscriptions.push(
+      this.accountService.getAccount(account.iban!)
+        .subscribe(account => {
+          this.account = account;
+          this.entries$ = this.entryService.getEntriesForAccount(account);
+        })
+    );
+  }
+
+
+  public onWithdrawSuccess(account: Account) {
+    this.subscriptions.push(
+      this.accountService.getAccount(account.iban!)
+        .subscribe(account => {
+          this.account = account;
+          this.entries$ = this.entryService.getEntriesForAccount(account);
+        })
+    );
   }
 
 }

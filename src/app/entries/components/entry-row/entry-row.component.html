@@ -1,14 +1,5 @@
 <div class="entry-row">
-  <div class="entry-icon"
-       [class.deposit]="entry().entryType === 'deposit'"
-       [class.withdraw]="entry().entryType === 'withdraw'">
-    @if (entry().entryType === "deposit") {
-      <fa-icon [icon]="faDownload" class=""></fa-icon>
-    }
-    @if (entry().entryType === "withdraw") {
-      <fa-icon [icon]="faUpload" class=""></fa-icon>
-    }
-  </div>
+  <i app-entry-icon [entryType]="entry().entryType"></i>
 
   <div class="id" [ngbTooltip]="entry().id">{{ entry().id | truncatedId }}</div>
 

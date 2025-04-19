@@ -1,5 +1,5 @@
-import { Component, inject, input, OnDestroy, signal } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Component, HostListener, inject, input, OnDestroy, output, signal } from "@angular/core";
+import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import { EntryService } from "../../services/entry.service";
 import { Subscription } from "rxjs";
 import { Account } from "../../../accounts/models/account.model";
@@ -8,9 +8,12 @@ import { EntryType, EntryWriteDTO } from "../../models/entry.model";
 
 
 @Component({
-  selector: 'app-withdraw-button',
+  selector: "button[app-withdraw-button]",
   imports: [],
-  templateUrl: './withdraw-button.component.html'
+  template: "{{caption}}",
+  host: {
+    class: "btn btn-withdraw"
+  }
 })
 export class WithdrawButtonComponent implements OnDestroy {
 
@@ -19,7 +22,10 @@ export class WithdrawButtonComponent implements OnDestroy {
 
   private readonly subscriptions: Subscription[] = [];
 
+  protected caption = "Auszahlen";
+
   public account = input.required<Account>();
+  public withdrawSuccess = output<Account>();
 
 
   public ngOnDestroy() {
@@ -27,16 +33,24 @@ export class WithdrawButtonComponent implements OnDestroy {
   }
 
 
-  protected onClick() {
-    const modalRef = this.modalService.open(EntryEditComponent);
+  @HostListener("click", ["$event"])
+  protected onClickHost(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const options: NgbModalOptions = {
+      ariaLabelledBy: this.caption
+    };
+
+    const modalRef = this.modalService.open(EntryEditComponent, options);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     modalRef.componentInstance.type = signal("withdraw" as EntryType);
 
     modalRef.result
       .then((entry: EntryWriteDTO) => {
-        console.log(entry);
         this.subscriptions.push(
-          this.entryService.withdraw(this.account(), entry).subscribe()
+          this.entryService.withdraw(this.account(), entry)
+            .subscribe(() => this.withdrawSuccess.emit(this.account()))
         );
       })
       .catch(() => {

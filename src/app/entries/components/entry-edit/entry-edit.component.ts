@@ -2,13 +2,15 @@ import { Component, inject, input, OnInit } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { EntryType, EntryWriteDTO } from "../../models/entry.model";
+import { EntryIconComponent } from "../entry-icon/entry-icon.component";
 
 
 @Component({
   selector: "app-entry-edit",
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EntryIconComponent
   ],
   templateUrl: "./entry-edit.component.html"
 })

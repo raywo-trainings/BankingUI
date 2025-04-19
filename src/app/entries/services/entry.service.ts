@@ -1,12 +1,10 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Account } from "../../accounts/models/account.model";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { Entry, EntryWriteDTO } from "../models/entry.model";
 import { baseUrl } from "../../common/helper/base-url.helper";
 
-
-type AccountEntries = Record<string, Observable<Entry[]>>;
 
 @Injectable({
   providedIn: "root"
@@ -14,19 +12,6 @@ type AccountEntries = Record<string, Observable<Entry[]>>;
 export class EntryService {
 
   private readonly http = inject(HttpClient);
-
-  // private readonly _entries = new BehaviorSubject<AccountEntries>({});
-  private _accountEntries: AccountEntries = {};
-  public readonly accountEntries$ = new BehaviorSubject<AccountEntries>(this._accountEntries);
-
-
-  public entriesForAccount(account: Account): Observable<Entry[]> {
-    if (!this._accountEntries[account.iban!]) {
-      return of([]);
-    }
-
-    return this._accountEntries[account.iban!];
-  }
 
 
   public getEntriesForAccount(account?: Account): Observable<Entry[]> {

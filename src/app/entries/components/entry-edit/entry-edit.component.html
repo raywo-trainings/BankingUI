@@ -1,5 +1,9 @@
 <div class="modal-header">
   <h3 class="modal-title">
+    <i app-entry-icon
+       class="me-2"
+       [entryType]="type()"
+       [colorize]="false"></i>
     @switch (type()) {
       @case ("deposit") {
         Einzahlen
