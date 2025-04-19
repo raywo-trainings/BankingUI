@@ -43,6 +43,8 @@ export function currentAccountDtoFromAccount(account: Account): CurrentAccountWr
 }
 
 
-export function isCurrentAccount(account: Account): account is CurrentAccount {
+export function isCurrentAccount(account?: Account | null): account is CurrentAccount {
+  if (!account) return false;
+
   return account.type === "current";
 }

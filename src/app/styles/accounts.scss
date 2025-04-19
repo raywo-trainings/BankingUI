@@ -1,7 +1,7 @@
-.account-details {
+.account-row {
   display: grid;
   grid-template-areas: "icon info add-info balance buttons";
-  grid-template-columns: auto 1fr 17ch 25ch auto;
+  grid-template-columns: 4ch 1fr 17ch 25ch auto;
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
@@ -10,13 +10,12 @@
     font-size: 1.2rem;
   }
 
-  .account-details-icon {
+  .account-row-icon {
     grid-area: icon;
     font-size: 2.5rem;
-    width: 2ch;
   }
 
-  .account-details-info {
+  .account-row-info {
     grid-area: info;
 
     display: flex;
@@ -25,18 +24,18 @@
     align-items: center;
   }
 
-  .account-details-additional-info {
+  .account-row-additional-info {
     grid-area: add-info;
 
     display: grid;
   }
 
-  .account-details-row {
+  .account-row-row {
     display: grid;
     grid-template-columns: 1fr auto;
   }
 
-  .account-details-balance {
+  .account-row-balance {
     grid-area: balance;
 
     font-size: 1.5rem;
@@ -46,12 +45,23 @@
     margin-inline-start: 2rem;
   }
 
-  .account-details-buttons {
+  .account-row-buttons {
     grid-area: buttons;
 
     display: flex;
     gap: 0.5rem;
-    //align-items: end;
-    //text-align: end;
+  }
+}
+
+
+.account-details {
+  width: 80%;
+  height: 80vh;
+  margin-top: 2rem;
+  margin-inline: auto;
+
+  &-entry-list {
+    height: calc(100% - 10rem);
+    overflow-y: auto;
   }
 }

@@ -1,0 +1,63 @@
+.entry-row {
+  display: grid;
+  grid-template-areas: "icon id date description amount";
+  grid-template-columns: 4ch 10ch 10ch 1fr 10ch;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+
+  .icon {
+    --icon-font-size: 1rem;
+    --icon-size: calc(var(--icon-font-size) * 2);
+
+    grid-area: icon;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var( --icon-font-size);
+    aspect-ratio: 1;
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    padding-bottom: calc(var(--icon-size) * 0.05);
+    border-radius: 50%;
+    border: 1px solid;
+  }
+
+  .id {
+    grid-area: id;
+  }
+
+  .description {
+    grid-area: description;
+  }
+
+  .amount {
+    grid-area: amount;
+    text-align: end;
+  }
+
+  .date {
+    grid-area: date;
+  }
+}
+
+.deposit {
+  background-color: rgba(40, 167, 69, 0.2); // leicht transparentes Grün
+  color: #28a745; // passendes, sattes Grün für Text
+}
+
+.withdraw {
+  background-color: rgba(220, 53, 69, 0.2); // leicht transparentes Rot
+  color: #dc3545; // passendes, klares Rot für Text
+}
+
+
+//.deposit {
+//  color: var(--deposit-color);
+//}
+//
+//.withdraw {
+//  color: var(--withdraw-color);
+//}

@@ -1,0 +1,27 @@
+<div class="entry-row">
+  <div class="icon"
+       [class.deposit]="entry().entryType === 'deposit'"
+       [class.withdraw]="entry().entryType === 'withdraw'">
+    @if (entry().entryType === "deposit") {
+      <fa-icon [icon]="faDownload" class=""></fa-icon>
+    }
+    @if (entry().entryType === "withdraw") {
+      <fa-icon [icon]="faUpload" class=""></fa-icon>
+    }
+  </div>
+
+  <div class="id" [ngbTooltip]="entry().id">{{ entry().id | truncatedId }}</div>
+
+  <div class="date">
+    {{ entry().entryDate | date: "mediumDate" }}
+    {{ entry().entryDate | date: "shortTime" }} Uhr
+  </div>
+
+  <div class="description">{{ entry().description }}</div>
+
+  <div class="amount">
+    @let amount = entry().entryType === "withdraw" ?
+      -entry().amount : entry().amount;
+    {{ amount | currency: "EUR" }}
+  </div>
+</div>

@@ -32,8 +32,19 @@ export class AccountsService {
       "X-Error-Context": "Kontoliste für Kunden konnte nicht geladen werden"
     });
 
-    return this.http.get<Account[]>(`${this.getBaseUrl()}?ownerId=${client.id}`,
-      { headers });
+    return this.http.get<Account[]>(
+      `${this.getBaseUrl()}?ownerId=${client.id}`,
+      { headers }
+    );
+  }
+
+
+  public getAccount(iban: string): Observable<Account> {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Konto konnte nicht geladen werden"
+    });
+
+    return this.http.get<Account>(`${this.getBaseUrl(iban)}`, { headers });
   }
 
 

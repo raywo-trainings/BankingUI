@@ -2,11 +2,11 @@
   <fa-icon [icon]="faTrash"></fa-icon>
 }
 
-@if (caption()) {
+@if (showCaption()) {
   <span class="ms-2">{{ caption() }}</span>
 } @else {
   <span class="visually-hidden ms-2">
-    Löschen
+    {{ caption() }}
   </span>
 }
 
