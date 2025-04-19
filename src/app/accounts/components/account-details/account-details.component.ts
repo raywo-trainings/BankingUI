@@ -11,6 +11,7 @@ import { EntryListComponent } from "../../../entries/components/entry-list/entry
 import { isCurrentAccount } from "../../models/current-account.model";
 import { isSavingsAccount } from "../../models/savings-account.model";
 import { EditAccountButtonComponent } from "../edit-account-button/edit-account-button.component";
+import { DeleteAccountButtonComponent } from "../delete-account-button/delete-account-button.component";
 
 
 @Component({
@@ -21,7 +22,8 @@ import { EditAccountButtonComponent } from "../edit-account-button/edit-account-
     CurrencyPipe,
     EntryListComponent,
     DecimalPipe,
-    EditAccountButtonComponent
+    EditAccountButtonComponent,
+    DeleteAccountButtonComponent
   ],
   templateUrl: "./account-details.component.html"
 })
@@ -64,4 +66,5 @@ export class AccountDetailsComponent implements OnDestroy {
   protected onAccountUpdated(account: Account) {
     this.account = account;
   }
+
 }

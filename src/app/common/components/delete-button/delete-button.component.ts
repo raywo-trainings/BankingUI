@@ -29,7 +29,8 @@ export class DeleteButtonComponent implements OnInit {
   protected readonly faTrash = faTrashCan;
 
   public showIcon = input<boolean>(true);
-  public caption = input<string>();
+  public caption = input<string>("Löschen");
+  public showCaption = input<boolean>(true);
   public deleteConfirmed = output();
 
   public withConfirmation = input<boolean>(true);

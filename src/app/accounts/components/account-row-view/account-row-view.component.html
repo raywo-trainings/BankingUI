@@ -31,18 +31,6 @@
 
   <div class="account-row-buttons">
     <app-edit-account-button [account]="account()" [showCaption]="false" />
-    <button app-delete-button
-            caption="Konto schließen"
-            [confirmationMessage]="deleteMessage"
-            (deleteConfirmed)="onDeleteClick()">
-    </button>
+    <app-delete-account-button [account]="account()" [showCaption]="false" />
   </div>
 </div>
-
-<ng-template #deleteMessage>
-  <p>
-    Soll der Konto „<strong>{{ account().iban }}</strong>“ von {{ account().owner | fullName }}
-    wirklich gelöscht werden?
-  </p>
-  <p class="text-danger">Die Aktion kann nicht rückgängig gemacht werden!</p>
-</ng-template>

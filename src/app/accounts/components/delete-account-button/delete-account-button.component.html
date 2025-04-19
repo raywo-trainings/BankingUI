@@ -1,0 +1,15 @@
+<button app-delete-button
+        caption="Konto schließen"
+        [showCaption]="showCaption()"
+        [disabled]="account().balance !== 0"
+        [confirmationMessage]="deleteMessage"
+        (deleteConfirmed)="onDeleteClick()">
+</button>
+
+<ng-template #deleteMessage>
+  <p>
+    Soll das Konto „<strong>{{ account().iban | iban }}</strong>“ von
+    {{ account().owner | fullName }} wirklich gelöscht werden?
+  </p>
+  <p class="text-danger">Die Aktion kann nicht rückgängig gemacht werden!</p>
+</ng-template>
