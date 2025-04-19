@@ -1,4 +1,72 @@
-@let entries = (entries$ | async)!;
+<form>
+  <div class="row">
+    <div class="col">
+      Buchungen nach Datum filtern:
+    </div>
+
+    <div class="col range-date-picker mb-3">
+      <div class="date-picker-hidden position-absolute">
+        <div class="input-group">
+          <input
+            name="datepicker"
+            class="form-control"
+            ngbDatepicker
+            #datepicker="ngbDatepicker"
+            autoClose="outside"
+            (dateSelect)="onDateSelection($event)"
+            [displayMonths]="2"
+            [dayTemplate]="dayTemplate"
+            outsideDays="hidden"
+            [startDate]="fromDate!"
+            tabindex="-1"
+          />
+        </div>
+      </div>
+      <div class="input-group">
+        <input class="form-control"
+               placeholder="tt.mm.jjjj"
+               name="dpFromDate"
+               [value]="formatter.format(fromDate)"
+               (input)="onInputChange(dpFromDate.value, 'from')"
+               #dpFromDate />
+        <button class="input-group-text"
+                (click)="datepicker.toggle()"
+                type="button">
+          <fa-icon [icon]="faCalendarAlt"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="input-group">
+        <input class="form-control"
+               placeholder="tt.mm.jjjj"
+               name="dpToDate"
+               [value]="formatter.format(toDate)"
+               (input)="onInputChange(dpToDate.value, 'to')"
+               #dpToDate />
+        <button class="input-group-text"
+                (click)="datepicker.toggle()"
+                type="button">
+          <fa-icon [icon]="faCalendarAlt"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #dayTemplate let-date let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isRange(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        [class.from]="isFrom(date)"
+        [class.to]="isTo(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
 
 <ul class="list-group">
   @for (entry of entries; track entry.id) {
