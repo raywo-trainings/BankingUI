@@ -3,12 +3,12 @@
 
   <div>
     <button app-add-button
-            caption="Girokonto anlegen"
+            caption="Girokonto eröffnen"
             class="me-2"
             (addClick)="addCurrentAccount()">
     </button>
     <button app-add-button
-            caption="Sparkonto anlegen"
+            caption="Sparkonto eröffnen"
             (addClick)="addSavingsAccount()">
     </button>
   </div>
@@ -21,6 +21,51 @@
          class="list-group-item list-group-item-action">
         <app-account-row-view [account]="account" />
       </a>
+    } @empty {
+      @let clients = clients$ | async;
+      @let clientsCount = clients?.length ?? 0;
+
+      <div class="card info-card border-info">
+        <div class="card-header">
+          <h3>Keine Konten</h3>
+        </div>
+
+        <div class="card-body">
+          <h4 class="card-title">Es sind noch keine Konten eröffnet worden.</h4>
+
+          <p class="card-text">
+            Eröffne das erste Konto jetzt, um mit der Kontenverwaltung zu beginnen.
+          </p>
+
+          @if (clientsCount === 0) {
+            <p class="card-text">
+              Da du noch keine Kunden erfasst hast, beginne damit, einen Kunden anzulegen.
+            </p>
+
+            <p>
+              <a routerLink="/clients" class="btn btn-secondary">
+                Wechsle zur Kundenverwaltung
+              </a>
+            </p>
+          }
+
+          @if (clientsCount !== 0) {
+            <button app-add-button
+                    caption="Eröffne das erste Girokonto jetzt!"
+                    class="me-2"
+                    [disabled]="clientsCount === 0"
+                    (addClick)="addCurrentAccount()">
+            </button>
+            <button app-add-button
+                    caption="Eröffne das erste Sparkonto jetzt!"
+                    [disabled]="clientsCount === 0"
+                    (addClick)="addSavingsAccount()">
+            </button>
+          }
+        </div>
+      </div>
     }
   </div>
 </div>
+
+
