@@ -8,6 +8,7 @@ import { EntryType, EntryWriteDTO } from "../../models/entry.model";
 
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: "button[app-withdraw-button]",
   imports: [],
   template: "{{caption}}",

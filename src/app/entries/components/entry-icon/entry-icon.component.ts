@@ -5,6 +5,7 @@ import { EntryType } from "../../models/entry.model";
 
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: "i[app-entry-icon]",
   imports: [
     FaIconComponent
