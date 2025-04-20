@@ -1,6 +1,7 @@
 <div class="vstack fit-width mb-3 justify-content-center align-items-center">
-  <div class="hstack gap-2">
-    <div class="range-date-picker">
+  <div class="hstack gap-2 range-date-picker">
+    <label for="fromDateInput" class="form-label small">Von</label>
+    <div class="">
       <div class="date-picker-hidden position-absolute">
         <div class="input-group input-group-sm">
           <input
@@ -20,6 +21,7 @@
       </div>
       <div class="input-group input-group-sm">
         <input class="form-control form-control-sm"
+               id="fromDateInput"
                placeholder="tt.mm.jjjj"
                name="dpFromDate"
                [value]="formatter.format(from)"
@@ -33,9 +35,11 @@
       </div>
     </div>
 
-    <div class="">
+    <div class="hstack gap-2">
+      <label for="toDateInput" class="form-label small">Bis</label>
       <div class="input-group input-group-sm">
         <input class="form-control form-control-sm"
+               id="toDateInput"
                placeholder="tt.mm.jjjj"
                name="dpToDate"
                [value]="formatter.format(to)"
