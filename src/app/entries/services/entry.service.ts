@@ -14,14 +14,19 @@ export class EntryService {
   private readonly http = inject(HttpClient);
 
 
-  public getEntriesForAccount(account?: Account): Observable<Entry[]> {
+  public getEntriesForAccount(account?: Account,
+                              fromDate?: Date,
+                              toDate?: Date): Observable<Entry[]> {
     if (!account) return of([]);
 
     const headers = new HttpHeaders({
       "X-Error-Context": "Buchungen konnten nicht geladen werden"
     });
 
-    return this.http.get<Entry[]>(this.getBaseUrl(account.iban!), { headers });
+    return this.http.get<Entry[]>(
+      this.getBaseUrl(account.iban!, fromDate, toDate),
+      { headers }
+    );
   }
 
 
@@ -47,8 +52,17 @@ export class EntryService {
   }
 
 
-  private getBaseUrl(iban: string): string {
-    return `${baseUrl}/accounts/${iban}/entries`;
+  private getBaseUrl(iban: string, fromDate?: Date, toDate?: Date): string {
+    const queryParams = new URLSearchParams();
+
+    if (fromDate) queryParams.set("from", fromDate.toISOString());
+    if (toDate) queryParams.set("to", toDate.toISOString());
+
+    const queryString = queryParams.toString();
+
+    const url = `${baseUrl}/accounts/${iban}/entries${queryString ? `?${queryString}` : ""}`;
+    console.log(url);
+    return url;
   }
 
 

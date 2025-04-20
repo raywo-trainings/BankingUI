@@ -9,8 +9,8 @@
 
     <div class="hstack gap-2">
       @if (account) {
-        <app-edit-account-button [(account)]="account"/>
-        <app-delete-account-button [account]="account"/>
+        <app-edit-account-button [(account)]="account" />
+        <app-delete-account-button [account]="account" />
       }
     </div>
   </div>
@@ -61,12 +61,16 @@
       </div>
     </div>
 
-    <h3 class="card-title h5 mt-4">
-      Buchungen
-    </h3>
+    <div class="hstack gap-2 mt-4 justify-content-between align-items-baseline">
+      <h3 class="card-title h4">
+        Buchungen
+      </h3>
+
+      <app-date-range-picker [(fromDate)]="from" [(toDate)]="to" />
+    </div>
 
     <div class="account-details-entry-list ">
-      <app-entry-list [account]="account!"/>
+      <app-entry-list [account]="account!" [(fromDate)]="from" [(toDate)]="to" />
     </div>
   </div>
 </div>

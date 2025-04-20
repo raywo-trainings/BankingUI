@@ -1,0 +1,51 @@
+.range-date-picker {
+  --day-select-color: white;
+  --day-select-bg-color: var(--bs-primary);
+  --day-select-bg-color-faded: rgba(var(--bs-primary-rgb), 0.5);
+  --day-select-focus-color: #e6e6e6;
+  --day-select-border-radius: calc(var(--bs-border-radius) * 1.5);
+}
+
+.date-picker-hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+
+.custom-day.focused {
+  background-color: var(--day-select-focus-color);
+}
+
+.custom-day.range,
+.custom-day:hover {
+  background-color: var(--day-select-bg-color);
+  color: var(--day-select-color);
+}
+
+.custom-day.from {
+  border-top-left-radius: var(--day-select-border-radius);
+  border-bottom-left-radius: var(--day-select-border-radius);
+}
+
+.custom-day.to {
+  border-top-right-radius: var(--day-select-border-radius);
+  border-bottom-right-radius: var(--day-select-border-radius);
+}
+
+.custom-day.faded {
+  background-color: var(--day-select-bg-color-faded);
+  color: var(--day-select-color);
+}
+
+.ngb-dp-weekday {
+  color: var(--bs-primary) !important;
+}

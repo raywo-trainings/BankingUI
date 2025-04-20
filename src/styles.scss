@@ -9,6 +9,7 @@
 @use "app/styles/accounts";
 @use "app/styles/entries";
 @use "app/styles/info-cards";
+@use "app/styles/date-picker";
 
 strong {
   font-weight: 600;
@@ -24,4 +25,8 @@ strong {
 
 .pointer:hover {
   cursor: pointer;
+}
+
+.fit-width {
+  width: fit-content;
 }

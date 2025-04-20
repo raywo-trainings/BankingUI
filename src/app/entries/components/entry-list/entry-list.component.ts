@@ -1,33 +1,47 @@
-import { Component, effect, inject, input } from "@angular/core";
+import { Component, effect, inject, input, model, OnDestroy } from "@angular/core";
 import { Account } from "../../../accounts/models/account.model";
 import { EntryService } from "../../services/entry.service";
-import { Observable, of } from "rxjs";
+import { Subscription } from "rxjs";
 import { Entry } from "../../models/entry.model";
 import { EntryRowComponent } from "../entry-row/entry-row.component";
-import { AsyncPipe } from "@angular/common";
+import { DateTime } from "luxon";
 
 
 @Component({
   selector: "app-entry-list",
   imports: [
-    EntryRowComponent,
-    AsyncPipe
+    EntryRowComponent
   ],
   templateUrl: "./entry-list.component.html"
 })
-export class EntryListComponent {
+export class EntryListComponent implements OnDestroy {
 
   private readonly entryService = inject(EntryService);
 
-  protected entries$: Observable<Entry[]> = of([]);
+  private readonly subscriptions: Subscription[] = [];
+
+  protected entries: Entry[] = [];
 
   public account = input.required<Account>();
+  public fromDate = model<DateTime | null>(null);
+  public toDate = model<DateTime | null>(null);
 
 
   constructor() {
     effect(() => {
-      this.entries$ = this.entryService.getEntriesForAccount(this.account());
+      const from = this.fromDate()?.toJSDate();
+      const to = this.toDate()?.toJSDate();
+
+      this.subscriptions.push(
+        this.entryService.getEntriesForAccount(this.account(), from, to)
+          .subscribe(entries => this.entries = entries)
+      );
     });
+  }
+
+
+  public ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
 }

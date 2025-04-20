@@ -1,11 +1,13 @@
+@use 'sass:color';
+
 $fonts: "Commissioner", system-ui;
 $primary: #14213D;
 $secondary: #FCA311;
 $deposit-color: #28a745;
-$deposit-color-emphasis: darken($deposit-color, 10%);
+$deposit-color-emphasis: color.adjust($deposit-color, $lightness: -10%);
 $deposit-bg-color: rgba(40, 167, 69, 0.2);
-$deposit-bg-color-emphasis: darken($deposit-bg-color, 10%);
+$deposit-bg-color-emphasis: color.adjust($deposit-bg-color, $lightness: 10%);
 $withdraw-color: #dc3545;
-$withdraw-color-emphasis: darken($withdraw-color, 10%);
+$withdraw-color-emphasis: color.adjust($withdraw-color, $lightness: 10%);
 $withdraw-bg-color: rgba(220, 53, 69, 0.2);
-$withdraw-bg-color-emphasis: darken($withdraw-bg-color, 10%);
+$withdraw-bg-color-emphasis: color.adjust($withdraw-bg-color, $lightness: 10%);
