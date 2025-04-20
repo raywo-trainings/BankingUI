@@ -4,24 +4,15 @@ import { EntryService } from "../../services/entry.service";
 import { Subscription } from "rxjs";
 import { Entry } from "../../models/entry.model";
 import { EntryRowComponent } from "../entry-row/entry-row.component";
-import { FormsModule } from "@angular/forms";
-import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
-import { DateParserFormatterService } from "../../../common/services/date-parser-formatter.service";
-import { DateRangePickerComponent } from "../../../common/components/date-range-picker/date-range-picker.component";
 import { DateTime } from "luxon";
 
 
 @Component({
   selector: "app-entry-list",
   imports: [
-    EntryRowComponent,
-    FormsModule,
-    DateRangePickerComponent
+    EntryRowComponent
   ],
-  templateUrl: "./entry-list.component.html",
-  providers: [
-    { provide: NgbDateParserFormatter, useClass: DateParserFormatterService }
-  ]
+  templateUrl: "./entry-list.component.html"
 })
 export class EntryListComponent implements OnDestroy {
 
@@ -30,10 +21,10 @@ export class EntryListComponent implements OnDestroy {
   private readonly subscriptions: Subscription[] = [];
 
   protected entries: Entry[] = [];
-  protected fromDate = model<DateTime | null>(null);
-  protected toDate = model<DateTime | null>(null);
 
   public account = input.required<Account>();
+  public fromDate = model<DateTime | null>(null);
+  public toDate = model<DateTime | null>(null);
 
 
   constructor() {

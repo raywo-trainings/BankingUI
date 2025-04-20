@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, OnDestroy} from "@angular/core";
+import {Component, effect, inject, input, model, OnDestroy} from "@angular/core";
 import {Account} from "../../models/account.model";
 import {AccountsService} from "../../services/accounts.service";
 import {FullNamePipe} from "../../../clients/pipes/fullName.pipe";
@@ -14,6 +14,8 @@ import {EditAccountButtonComponent} from "../edit-account-button/edit-account-bu
 import {DeleteAccountButtonComponent} from "../delete-account-button/delete-account-button.component";
 import {DepositButtonComponent} from "../../../entries/components/deposit-button/deposit-button.component";
 import {WithdrawButtonComponent} from "../../../entries/components/withdraw-button/withdraw-button.component";
+import {DateRangePickerComponent} from "../../../common/components/date-range-picker/date-range-picker.component";
+import {DateTime} from "luxon";
 
 
 @Component({
@@ -27,7 +29,8 @@ import {WithdrawButtonComponent} from "../../../entries/components/withdraw-butt
     EditAccountButtonComponent,
     DeleteAccountButtonComponent,
     DepositButtonComponent,
-    WithdrawButtonComponent
+    WithdrawButtonComponent,
+    DateRangePickerComponent
   ],
   templateUrl: "./account-details.component.html"
 })
@@ -43,6 +46,8 @@ export class AccountDetailsComponent implements OnDestroy {
 
   protected account?: Account;
   protected entries$?: Observable<Entry[]>;
+  protected from = model<DateTime | null>(null);
+  protected to = model<DateTime | null>(null);
 
   public iban = input.required<string>();
 

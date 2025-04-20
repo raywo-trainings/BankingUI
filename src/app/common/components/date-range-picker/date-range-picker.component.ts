@@ -4,6 +4,7 @@ import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbInputDatepicker } from
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
 import { toDateTime } from "../../helper/to-date-time.helper";
+import { DateParserFormatterService } from "../../services/date-parser-formatter.service";
 
 
 type DateType = "from" | "to";
@@ -15,7 +16,10 @@ type DateType = "from" | "to";
     FaIconComponent,
     NgbInputDatepicker
   ],
-  templateUrl: "./date-range-picker.component.html"
+  templateUrl: "./date-range-picker.component.html",
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: DateParserFormatterService }
+  ]
 })
 export class DateRangePickerComponent {
 
@@ -67,7 +71,7 @@ export class DateRangePickerComponent {
   protected isRange(date: NgbDate) {
     /*
     eslint-disable @typescript-eslint/prefer-nullish-coalescing
-    --  this.to would result in boolean | null, which is what this
+     -- this.to would result in boolean | null, which is what this
         rule is complaining about. But (this.to ?? false) is not
         very readable.
     */
