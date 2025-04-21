@@ -18,16 +18,8 @@
       </strong>
     </div>
 
-    <button app-edit-button
-            caption="Kunde bearbeiten"
-            [showCaption]="false"
-            (editClick)="onEditClick()">
-    </button>
-    <button app-delete-button
-            confirmationTitle="Kunde löschen"
-            [confirmationMessage]="deleteMessage"
-            (deleteConfirmed)="onDeleteConfirmed()">
-    </button>
+    <app-client-edit-button [(client)]="client" [showCaption]="false" />
+    <app-client-delete-button [client]="client()" [showCaption]="false" />
   </div>
 </div>
 

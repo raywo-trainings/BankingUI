@@ -1,0 +1,15 @@
+<button app-delete-button
+        caption="Konden löschen"
+        [showCaption]="showCaption()"
+        [disabled]="hasAccounts"
+        [confirmationMessage]="deleteMessage"
+        (deleteConfirmed)="onDeleteClick()">
+</button>
+
+<ng-template #deleteMessage>
+  <p>
+    Soll der Kunde „<strong>{{ client() | fullName }}</strong>“
+    wirklich gelöscht werden?
+  </p>
+  <p class="text-danger">Die Aktion kann nicht rückgängig gemacht werden!</p>
+</ng-template>

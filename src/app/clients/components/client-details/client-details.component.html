@@ -11,8 +11,9 @@
 
     <div class="hstack gap-2">
       @if (client) {
-        <!--        <app-edit-account-button [(account)]="account" />-->
-          <!--        <app-delete-account-button [account]="account" />-->
+        <app-client-edit-button [(client)]="client" />
+        <app-client-delete-button [client]="client"
+                                  (clientDeleted)="onClientDeleted()" />
       }
     </div>
   </div>

@@ -5,8 +5,10 @@ import { Subscription, switchMap } from "rxjs";
 import { Client } from "../../models/client.model";
 import { AccountsService } from "../../../accounts/services/accounts.service";
 import { Account } from "../../../accounts/models/account.model";
-import { CurrencyPipe } from "@angular/common";
+import { CurrencyPipe, Location } from "@angular/common";
 import { AccountListComponent } from "../../../accounts/components/account-list/account-list.component";
+import { ClientEditButtonComponent } from "../client-edit-button/client-edit-button.component";
+import { ClientDeleteButtonComponent } from "../client-delete-button/client-delete-button.component";
 
 
 @Component({
@@ -14,7 +16,9 @@ import { AccountListComponent } from "../../../accounts/components/account-list/
   imports: [
     FullNamePipe,
     CurrencyPipe,
-    AccountListComponent
+    AccountListComponent,
+    ClientEditButtonComponent,
+    ClientDeleteButtonComponent
   ],
   templateUrl: "./client-details.component.html"
 })
@@ -22,6 +26,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   private readonly clientService = inject(ClientService);
   private readonly accountService = inject(AccountsService);
+  private readonly location = inject(Location);
 
   private subscriptions: Subscription[] = [];
 
@@ -69,4 +74,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     this.accountService.clearClientAccounts(this.id());
   }
 
+
+  protected onClientDeleted() {
+    this.location.back();
+  }
 }
