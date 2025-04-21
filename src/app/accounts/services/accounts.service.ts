@@ -1,9 +1,10 @@
 import { inject, Injectable } from "@angular/core";
 import { Client } from "../../clients/models/client.model";
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, map, Observable, tap } from "rxjs";
 import { Account, accountCompare, accountDTOFromAccount } from "../models/account.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { baseUrl } from "../../common/helper/base-url.helper";
+import { AccountStatistics } from "../models/account-statistics.model";
 
 
 type ClientAccountsMap = Record<number, BehaviorSubject<Account[]>>
@@ -152,6 +153,37 @@ export class AccountsService {
         tap(() => {
           this.accounts = this.accounts.filter(a => a.iban !== account.iban);
           this.removeFromClientAccounts(account);
+        })
+      );
+  }
+
+
+  public getAccountStatistics(): Observable<AccountStatistics> {
+    return this.accounts$
+      .pipe(
+        map(accounts => {
+          const count = accounts.length;
+          const totalCredit = accounts
+            .filter(account => account.balance >= 0)
+            .reduce((acc, a) => acc + a.balance, 0);
+          const totalDebit = accounts
+            .filter(account => account.balance < 0)
+            .reduce((acc, a) => acc + a.balance, 0);
+          const totalBalance = accounts
+            .reduce((acc, a) => acc + a.balance, 0);
+
+          const avgCredit = totalCredit / count;
+          const avgDebit = totalDebit / count;
+          const avgBalance = totalBalance / count;
+
+          return {
+            count,
+            totalCredit,
+            totalDebit,
+            avgCredit,
+            avgDebit,
+            avgBalance,
+          }
         })
       );
   }
