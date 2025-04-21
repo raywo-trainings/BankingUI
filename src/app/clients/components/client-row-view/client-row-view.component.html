@@ -1,12 +1,10 @@
 <div class="client-details-row">
   <div class="client-details-info">
     <h3 class="client-details-name">{{ client() | fullName }}</h3>
-    <button type="button" class="btn btn-secondary">
-      <div class="client-details-accounts">
-        Konten: <strong>{{ accountCount ? accountCount : "keine Konten" }}</strong>
-        <fa-icon [icon]="faChevronDown" class="ms-3"></fa-icon>
-      </div>
-    </button>
+
+    <div class="client-details-accounts">
+      Konten: <strong>{{ accountCount ? accountCount : "keine Konten" }}</strong>
+    </div>
   </div>
 
   <div class="client-details-buttons">
@@ -22,11 +20,3 @@
     <app-client-delete-button [client]="client()" [showCaption]="false" />
   </div>
 </div>
-
-<ng-template #deleteMessage>
-  <p>
-    Soll der Kunde „<strong>{{ client() | fullName }}</strong>“
-    wirklich gelöscht werden?
-  </p>
-  <p class="text-danger">Die Aktion kann nicht rückgängig gemacht werden!</p>
-</ng-template>

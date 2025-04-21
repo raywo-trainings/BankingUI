@@ -4,8 +4,6 @@ import { Account } from "../../../accounts/models/account.model";
 import { AccountsService } from "../../../accounts/services/accounts.service";
 import { Subscription } from "rxjs";
 import { CurrencyPipe } from "@angular/common";
-import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FullNamePipe } from "../../pipes/fullName.pipe";
 import { ClientEditButtonComponent } from "../client-edit-button/client-edit-button.component";
 import { ClientDeleteButtonComponent } from "../client-delete-button/client-delete-button.component";
@@ -15,7 +13,6 @@ import { ClientDeleteButtonComponent } from "../client-delete-button/client-dele
   selector: "app-client-row-view",
   imports: [
     CurrencyPipe,
-    FaIconComponent,
     FullNamePipe,
     ClientEditButtonComponent,
     ClientDeleteButtonComponent
@@ -31,8 +28,6 @@ export class ClientRowViewComponent implements OnDestroy {
   protected clientAccounts: Account[] = [];
   protected netWorth = 0;
   protected accountCount = 0;
-
-  protected readonly faChevronDown = faChevronDown;
 
   public client = model.required<Client>();
 
