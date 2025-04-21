@@ -1,47 +1,117 @@
 <div class="start">
-  <div class="card">
-    <h2 class="card-header h5">Kunden</h2>
+  <div class="row mb-3 g-3">
+    <div class="offset-xl-3 col-xl-3 col-sm-6">
+      <div class="card h-100">
+        <h2 class="card-header h5">Kunden</h2>
 
-    <div class="card-body">
-      <h3 class="card-title h5 mb-4">
-        Verwalten Sie die Kunden der RAYBANK.
-      </h3>
+        <div class="card-body">
+          <h3 class="card-title h5 mb-4">
+            Verwalten Sie die Kunden der <em class="fw-light">RAYBANK</em>.
+          </h3>
 
-      <p class="card-text">
-        Alle Funktionen zum Verwalten der Kunden der <em class="fw-light">RAYBANK</em>
-        finden Sie hier.
-      </p>
-      <p class="card-text">
-        Hier können Sie bestehende Kundendaten einsehen, neue Kunden hinzufügen
-        und Kundendetails sicher anpassen.
-      </p>
+          <p class="card-text">
+            Alle Funktionen zum Verwalten der Kunden der <em class="fw-light">RAYBANK</em>
+            finden Sie hier.
+          </p>
+          <p class="card-text">
+            Hier können Sie bestehende Kundendaten einsehen, neue Kunden hinzufügen
+            und Kundendetails sicher anpassen.
+          </p>
+        </div>
 
-      <a routerLink="/clients" class="btn btn-secondary">
-        Kunden verwalten
-      </a>
+        <div class="card-footer text-center">
+          <a routerLink="/clients" class="btn btn-secondary">
+            Kunden verwalten
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+      <div class="card h-100">
+        <h2 class="card-header h5">Konten</h2>
+
+        <div class="card-body">
+          <h3 class="card-title h5 mb-4">
+            Verwalten Sie die Konten der <em class="fw-light">RAYBANK</em>.
+          </h3>
+
+          <p class="card-text">
+            Alle Funktionen zum Verwalten der Kundenkonten der <em class="fw-light">RAYBANK</em>
+            finden Sie hier.
+          </p>
+          <p class="card-text">
+            Hier können Sie bestehende Kundenkonten einsehen, neue Konten hinzufügen
+            und Kontodetails sicher anpassen.
+          </p>
+        </div>
+
+        <div class="card-footer text-center">
+          <a routerLink="/accounts" class="btn btn-secondary">
+            Konten verwalten
+          </a></div>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <h2 class="card-header h5">Konten</h2>
+  <div class="row g-3">
+    <div class="offset-xl-3 col-xl-6 col-sm-12">
+      <div class="card h-100">
+        <h2 class="card-header h5">
+          Statistik
+        </h2>
 
-    <div class="card-body">
-      <h3 class="card-title h5 mb-4">
-        Verwalten Sie die Konten der RAYBANK.
-      </h3>
-
-      <p class="card-text">
-        Alle Funktionen zum Verwalten der Kundenkonten der <em class="fw-light">RAYBANK</em>
-        finden Sie hier.
-      </p>
-      <p class="card-text">
-        Hier können Sie bestehende Kundenkonten einsehen, neue Konten hinzufügen
-        und Kontodetails sicher anpassen.
-      </p>
-
-      <a routerLink="/accounts" class="btn btn-secondary">
-        Konten verwalten
-      </a>
+        <div class="card-body">
+          @let stats = (accountStats$ | async)!;
+          <ul class="list-group">
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: 'Kunden', value: (clients$ | async)?.length ?? 0 }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: 'Konten', value: stats.count }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: 'Gesamt-Haben', value: stats.totalCredit | currency: 'EUR' }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: 'Gesamt-Soll', value: stats.totalDebit | currency: 'EUR' }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: '∅-Saldo', value: stats.avgBalance | currency: 'EUR' }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: '∅-Haben', value: stats.avgCredit | currency: 'EUR' }"> >
+              </ng-template>
+            </li>
+            <li class="list-group-item">
+              <ng-template [ngTemplateOutlet]="statsLine"
+                           [ngTemplateOutletContext]="{ caption: '∅-Soll', value: stats.avgDebit | currency: 'EUR' }"> >
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #statsLine
+             let-caption="caption"
+             let-value="value">
+  <div class="hstack gap-2 justify-content-between">
+    <div class="stats-line-caption">{{ caption }}</div>
+    <div class="stats-line-value">{{ value }}</div>
+  </div>
+</ng-template>

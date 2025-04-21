@@ -1,11 +1,13 @@
 .start {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-
   padding-top: 5rem;
 
-  .card {
-    max-width: 32ch;
+  .stats-line {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+
+    &-value {
+      font-weight: 500;
+    }
   }
 }
