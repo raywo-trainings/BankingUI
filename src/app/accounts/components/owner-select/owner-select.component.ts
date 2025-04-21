@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit, ViewChild } from "@angular/core";
+import { Component, inject, input, model, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
 import { Client, createEmptyClient } from "../../../clients/models/client.model";
@@ -18,6 +18,7 @@ import { ClientService } from "../../../clients/services/client.service";
 export class OwnerSelectComponent implements OnInit {
 
   public owner = model<Client>(createEmptyClient());
+  public readonly = input<boolean>(false);
 
   private readonly clientService = inject(ClientService);
 

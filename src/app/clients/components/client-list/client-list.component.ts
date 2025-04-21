@@ -7,6 +7,7 @@ import { Client, createEmptyClient } from "../../models/client.model";
 import { Subscription } from "rxjs";
 import { ClientEditComponent } from "../client-edit/client-edit.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { RouterLink } from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   imports: [
     AsyncPipe,
     ClientRowViewComponent,
-    AddButtonComponent
+    AddButtonComponent,
+    RouterLink
   ],
   templateUrl: "./client-list.component.html"
 })

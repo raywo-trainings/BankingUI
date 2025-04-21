@@ -3,6 +3,7 @@ import { StartComponent } from "./common/components/start/start.component";
 import { ClientListComponent } from "./clients/components/client-list/client-list.component";
 import { AccountListComponent } from "./accounts/components/account-list/account-list.component";
 import { AccountDetailsComponent } from "./accounts/components/account-details/account-details.component";
+import { ClientDetailsComponent } from "./clients/components/client-details/client-details.component";
 
 
 export const routes: Routes = [
@@ -15,6 +16,11 @@ export const routes: Routes = [
   {
     path: "clients",
     component: ClientListComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: "clients/:id",
+    component: ClientDetailsComponent,
     pathMatch: 'full'
   },
 

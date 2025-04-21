@@ -1,0 +1,36 @@
+<div class="card client-details">
+  <div class="card-header hstack gap-2 justify-content-between">
+    <div>
+      <h2 class="card-title h4">
+        {{ client | fullName }}
+      </h2>
+      <span class="text-muted">Kundennummer:
+        <strong>{{ client?.id }}</strong>
+      </span>
+    </div>
+
+    <div class="hstack gap-2">
+      @if (client) {
+        <!--        <app-edit-account-button [(account)]="account" />-->
+          <!--        <app-delete-account-button [account]="account" />-->
+      }
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="hstack gap-2 justify-content-between">
+      <div>
+        <div class="text-muted fw-light">Gesamtvermögen</div>
+        <div class="card-title display-5 fw-normal">
+          {{ netWorth | currency: "EUR" }}
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="account-details-entry-list ">
+      <app-account-list [client]="client" />
+    </div>
+  </div>
+</div>

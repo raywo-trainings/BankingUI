@@ -1,6 +1,6 @@
 import { Component, effect, inject, input } from "@angular/core";
 import { AccountType } from "../../models/account.model";
-import { createEmptyClient } from "../../../clients/models/client.model";
+import { Client, createEmptyClient } from "../../../clients/models/client.model";
 import { FormsModule } from "@angular/forms";
 import { OwnerSelectComponent } from "../owner-select/owner-select.component";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
@@ -27,16 +27,18 @@ export class CurrentAccountEditComponent {
   protected overdraftInterestRate?: number;
 
   public account = input<CurrentAccount>(createEmptyCurrentAccount());
+  public client = input<Client>();
 
 
   constructor() {
     effect(() => {
       const account = this.account();
+      const client = this.client();
 
       if (!account) {
         this.iban = "";
         this.balance = 0;
-        this.owner = createEmptyClient();
+        this.owner = client ?? createEmptyClient();
         this.type = "current";
         this.overdraftLimit = undefined;
         this.overdraftInterestRate = undefined;
@@ -46,7 +48,7 @@ export class CurrentAccountEditComponent {
 
       this.iban = account.iban;
       this.balance = account.balance;
-      this.owner = account.owner;
+      this.owner = client ?? account.owner;
       this.type = account.type;
       this.overdraftLimit = account.overdraftLimit;
       this.overdraftInterestRate = account.overdraftInterestRate;
@@ -56,6 +58,11 @@ export class CurrentAccountEditComponent {
 
   protected isEdit(): boolean {
     return this.account().iban !== undefined;
+  }
+
+
+  protected ownerSelectIsReadOnly(): boolean {
+    return this.client() !== undefined;
   }
 
 
