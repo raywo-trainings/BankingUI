@@ -13,9 +13,7 @@
   @for (client of clients$ | async; track client.id) {
     <a routerLink="/clients/{{client.id}}"
        class="list-group-item list-group-item-action">
-      <app-client-row-view [client]="client"
-                           (editClicked)="onClientEdit($event)"
-                           (deleteClicked)="onClientDelete($event)" />
+      <app-client-row-view [client]="client" />
     </a>
   } @empty {
     <div class="card info-card border-info">

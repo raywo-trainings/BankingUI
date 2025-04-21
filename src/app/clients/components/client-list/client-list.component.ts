@@ -3,7 +3,7 @@ import { ClientService } from "../../services/client.service";
 import { AsyncPipe } from "@angular/common";
 import { ClientRowViewComponent } from "../client-row-view/client-row-view.component";
 import { AddButtonComponent } from "../../../common/components/add-button/add-button.component";
-import { Client, createEmptyClient } from "../../models/client.model";
+import { createEmptyClient } from "../../models/client.model";
 import { Subscription } from "rxjs";
 import { ClientEditComponent } from "../client-edit/client-edit.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -53,30 +53,6 @@ export class ClientListComponent implements OnInit, OnDestroy {
         );
       })
       .catch(() => { /* Do nothing. */ });
-  }
-
-
-  protected onClientEdit(client: Client) {
-    const modalRef = this.modalService.open(ClientEditComponent);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    modalRef.componentInstance.client = signal(client);
-
-    modalRef.result
-      .then(client => {
-        this.subscriptions.push(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          this.clientService.updateClient(client).subscribe()
-        );
-      })
-      .catch(() => { /* Do nothing. */
-      });
-  }
-
-
-  protected onClientDelete(client: Client) {
-    this.subscriptions.push(
-      this.clientService.deleteClient(client).subscribe()
-    );
   }
 
 }
