@@ -1,10 +1,12 @@
 import { inject, Injectable } from "@angular/core";
 import { Client } from "../../clients/models/client.model";
 import { BehaviorSubject, Observable, tap } from "rxjs";
-import { Account, accountDTOFromAccount } from "../models/account.model";
+import { Account, accountCompare, accountDTOFromAccount } from "../models/account.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { baseUrl } from "../../common/helper/base-url.helper";
 
+
+type ClientAccountsMap = Record<number, BehaviorSubject<Account[]>>
 
 @Injectable({
   providedIn: "root"
@@ -16,6 +18,8 @@ export class AccountsService {
   private _accounts = new BehaviorSubject<Account[]>([]);
   public readonly accounts$ = this._accounts.asObservable();
 
+  private _clientAccountsMap: ClientAccountsMap = {};
+
 
   public updateAccounts() {
     const headers = new HttpHeaders({
@@ -23,7 +27,20 @@ export class AccountsService {
     });
 
     this.http.get<Account[]>(this.getBaseUrl(), { headers })
-      .subscribe(accounts => this.accounts = accounts);
+      .subscribe(accounts => {
+        this.accounts = accounts;
+
+        accounts.forEach(a => {
+          if (this.clientsAccountsExists(a.owner.id!)) {
+            this.setClientsAccounts(
+              a.owner.id!,
+              this.accounts
+                .filter(a => a.owner.id === a.owner.id)
+                .sort(accountCompare)
+            );
+          }
+        });
+      });
   }
 
 
@@ -32,10 +49,16 @@ export class AccountsService {
       "X-Error-Context": "Kontoliste für Kunden konnte nicht geladen werden"
     });
 
-    return this.http.get<Account[]>(
+    this.http.get<Account[]>(
       `${this.getBaseUrl()}?ownerId=${client.id}`,
       { headers }
-    );
+    )
+      .pipe(
+        tap(accounts => this.setClientsAccounts(client.id!, accounts))
+      )
+      .subscribe();
+
+    return this.getOrCreateClientsAccounts(client.id!)?.asObservable();
   }
 
 
@@ -44,7 +67,19 @@ export class AccountsService {
       "X-Error-Context": "Konto konnte nicht geladen werden"
     });
 
-    return this.http.get<Account>(`${this.getBaseUrl(iban)}`, { headers });
+    return this.http.get<Account>(`${this.getBaseUrl(iban)}`, { headers })
+      .pipe(
+        tap(account => {
+          if (this.clientsAccountsExists(account.owner.id!)) {
+            this.setClientsAccounts(
+              account.owner.id!,
+              this.getOrCreateClientsAccounts(account.owner.id!)
+                .getValue()
+                .map(a => a.iban === account.iban ? account : a)
+            );
+          }
+        })
+      );
   }
 
 
@@ -60,6 +95,15 @@ export class AccountsService {
       .pipe(
         tap(newAccount => {
           this.accounts = this.accounts.concat(newAccount);
+
+          if (this.clientsAccountsExists(account.owner.id!)) {
+            this.setClientsAccounts(
+              account.owner.id!,
+              this.accounts
+                .filter(a => a.owner.id === account.owner.id)
+                .sort(accountCompare)
+            );
+          }
         })
       );
   }
@@ -78,6 +122,19 @@ export class AccountsService {
         tap(updatedAccount => {
           this.accounts = this.accounts
             .map(a => a.iban === updatedAccount.iban ? updatedAccount : a);
+
+          const ownerId = updatedAccount.owner.id!;
+
+          if (this.clientsAccountsExists(ownerId)) {
+            this.setClientsAccounts(
+              ownerId,
+              this.accounts
+                .filter(a => a.owner.id === ownerId)
+                .sort(accountCompare)
+            );
+          }
+
+          this.removeFromClientAccounts(account);
         })
       );
   }
@@ -94,8 +151,14 @@ export class AccountsService {
       .pipe(
         tap(() => {
           this.accounts = this.accounts.filter(a => a.iban !== account.iban);
+          this.removeFromClientAccounts(account);
         })
       );
+  }
+
+
+  public clearClientAccounts(clientId: number) {
+    delete this._clientAccountsMap[clientId];
   }
 
 
@@ -132,13 +195,35 @@ export class AccountsService {
 
 
   private set accounts(value: Account[]) {
-    const sortedAccounts = value.sort((a, b) => {
-      const aAccNo = a.iban!.substring(12);
-      const bAccNo = b.iban!.substring(12);
-
-      return aAccNo.localeCompare(bAccNo);
-    });
-    this._accounts.next(sortedAccounts);
+    this._accounts.next(value.sort(accountCompare));
   }
 
+
+  private clientsAccountsExists(clientId: number): boolean {
+    return this._clientAccountsMap[clientId] !== undefined;
+  }
+
+
+  private getOrCreateClientsAccounts(clientId: number): BehaviorSubject<Account[]> {
+    this._clientAccountsMap[clientId] ??= new BehaviorSubject<Account[]>([]);
+
+    return this._clientAccountsMap[clientId];
+  }
+
+
+  private setClientsAccounts(clientId: number, accounts: Account[]) {
+    this.getOrCreateClientsAccounts(clientId)
+      .next(accounts.sort(accountCompare));
+  }
+
+
+  private removeFromClientAccounts(account: Account) {
+    Object.values(this._clientAccountsMap).forEach(accSubject => {
+      accSubject.next(
+        accSubject.getValue()
+          .filter(a => a.iban !== account.iban)
+          .sort(accountCompare)
+      );
+    });
+  }
 }

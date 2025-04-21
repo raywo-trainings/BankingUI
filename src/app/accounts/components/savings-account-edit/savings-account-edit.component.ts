@@ -1,7 +1,7 @@
 import { Component, effect, inject, input } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { OwnerSelectComponent } from "../owner-select/owner-select.component";
-import { createEmptyClient } from "../../../clients/models/client.model";
+import { Client, createEmptyClient } from "../../../clients/models/client.model";
 import { AccountType } from "../../models/account.model";
 import { createEmptySavingsAccount, SavingsAccount } from "../../models/savings-account.model";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
@@ -26,16 +26,18 @@ export class SavingsAccountEditComponent {
   protected interestRate?: number;
 
   public account = input<SavingsAccount>(createEmptySavingsAccount());
+  public client = input<Client>();
 
 
   constructor() {
     effect(() => {
       const account = this.account();
+      const client = this.client();
 
       if (!account) {
         this.iban = "";
         this.balance = 0;
-        this.owner = createEmptyClient();
+        this.owner = client ?? createEmptyClient();
         this.type = "current";
         this.interestRate = undefined;
 
@@ -44,7 +46,7 @@ export class SavingsAccountEditComponent {
 
       this.iban = account.iban;
       this.balance = account.balance;
-      this.owner = account.owner;
+      this.owner = client ?? account.owner;
       this.type = account.type;
       this.interestRate = account.interestRate;
     });
@@ -53,6 +55,11 @@ export class SavingsAccountEditComponent {
 
   protected isEdit(): boolean {
     return this.account().iban !== undefined;
+  }
+
+
+  protected ownerSelectIsReadOnly(): boolean {
+    return this.client() !== undefined;
   }
 
 

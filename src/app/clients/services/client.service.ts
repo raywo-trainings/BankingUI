@@ -27,6 +27,15 @@ export class ClientService {
   }
 
 
+  public getClient(id: number): Observable<Client> {
+    const headers = new HttpHeaders({
+      "X-Error-Context": "Kunde konnte nicht geladen werden"
+    });
+
+    return this.http.get<Client>(this.getBaseUrl(id), { headers });
+  }
+
+
   public addClient(client: Client): Observable<Client> {
     const headers = new HttpHeaders({
       "X-Error-Context": "Kunde konnte nicht angelegt werden"
@@ -82,4 +91,5 @@ export class ClientService {
   private getBaseUrl(id?: number) {
     return `${baseUrl}/clients${id ? "/" + id : ""}`;
   }
+
 }

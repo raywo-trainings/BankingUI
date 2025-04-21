@@ -25,3 +25,11 @@ export function accountDTOFromAccount(account: Account): CurrentAccountWriteDTO 
       throw new Error("Unbekannter Kontotyp");
   }
 }
+
+
+export const accountCompare = (a: Account, b: Account): number => {
+  const aAccNo = a.iban!.substring(12);
+  const bAccNo = b.iban!.substring(12);
+
+  return aAccNo.localeCompare(bAccNo);
+};

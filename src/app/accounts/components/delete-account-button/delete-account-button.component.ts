@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, output } from "@angular/core";
 import { DeleteButtonComponent } from "../../../common/components/delete-button/delete-button.component";
 import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
 import { Account } from "../../models/account.model";
@@ -21,10 +21,12 @@ export class DeleteAccountButtonComponent {
 
   public account = input.required<Account>();
   public showCaption = input<boolean>(true);
+  public accountDeleted = output<Account>();
 
 
   protected onDeleteClick() {
-    this.accountService.closeAccount(this.account()).subscribe();
+    this.accountService.closeAccount(this.account())
+      .subscribe(() => this.accountDeleted.emit(this.account()));
   }
 
 }

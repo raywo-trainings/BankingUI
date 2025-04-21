@@ -1,21 +1,21 @@
-import {Component, effect, inject, input, model, OnDestroy} from "@angular/core";
-import {Account} from "../../models/account.model";
-import {AccountsService} from "../../services/accounts.service";
-import {FullNamePipe} from "../../../clients/pipes/fullName.pipe";
-import {Observable, Subscription} from "rxjs";
-import {Entry} from "../../../entries/models/entry.model";
-import {EntryService} from "../../../entries/services/entry.service";
-import {CurrencyPipe, DecimalPipe} from "@angular/common";
-import {IbanPipe} from "../../pipes/iban.pipe";
-import {EntryListComponent} from "../../../entries/components/entry-list/entry-list.component";
-import {isCurrentAccount} from "../../models/current-account.model";
-import {isSavingsAccount} from "../../models/savings-account.model";
-import {EditAccountButtonComponent} from "../edit-account-button/edit-account-button.component";
-import {DeleteAccountButtonComponent} from "../delete-account-button/delete-account-button.component";
-import {DepositButtonComponent} from "../../../entries/components/deposit-button/deposit-button.component";
-import {WithdrawButtonComponent} from "../../../entries/components/withdraw-button/withdraw-button.component";
-import {DateRangePickerComponent} from "../../../common/components/date-range-picker/date-range-picker.component";
-import {DateTime} from "luxon";
+import { Component, effect, inject, input, model, OnDestroy } from "@angular/core";
+import { Account } from "../../models/account.model";
+import { AccountsService } from "../../services/accounts.service";
+import { FullNamePipe } from "../../../clients/pipes/fullName.pipe";
+import { Observable, Subscription } from "rxjs";
+import { Entry } from "../../../entries/models/entry.model";
+import { EntryService } from "../../../entries/services/entry.service";
+import { CurrencyPipe, DecimalPipe, Location } from "@angular/common";
+import { IbanPipe } from "../../pipes/iban.pipe";
+import { EntryListComponent } from "../../../entries/components/entry-list/entry-list.component";
+import { isCurrentAccount } from "../../models/current-account.model";
+import { isSavingsAccount } from "../../models/savings-account.model";
+import { EditAccountButtonComponent } from "../edit-account-button/edit-account-button.component";
+import { DeleteAccountButtonComponent } from "../delete-account-button/delete-account-button.component";
+import { DepositButtonComponent } from "../../../entries/components/deposit-button/deposit-button.component";
+import { WithdrawButtonComponent } from "../../../entries/components/withdraw-button/withdraw-button.component";
+import { DateRangePickerComponent } from "../../../common/components/date-range-picker/date-range-picker.component";
+import { DateTime } from "luxon";
 
 
 @Component({
@@ -38,6 +38,7 @@ export class AccountDetailsComponent implements OnDestroy {
 
   private readonly accountService = inject(AccountsService);
   private readonly entryService = inject(EntryService);
+  private readonly location = inject(Location);
 
   private readonly subscriptions: Subscription[] = [];
 
@@ -72,7 +73,7 @@ export class AccountDetailsComponent implements OnDestroy {
   }
 
 
-  public onDepositSuccess(account: Account) {
+  protected onDepositSuccess(account: Account) {
     this.subscriptions.push(
       this.accountService.getAccount(account.iban!)
         .subscribe(account => {
@@ -83,7 +84,7 @@ export class AccountDetailsComponent implements OnDestroy {
   }
 
 
-  public onWithdrawSuccess(account: Account) {
+  protected onWithdrawSuccess(account: Account) {
     this.subscriptions.push(
       this.accountService.getAccount(account.iban!)
         .subscribe(account => {
@@ -93,4 +94,8 @@ export class AccountDetailsComponent implements OnDestroy {
     );
   }
 
+
+  protected onAccountDeleted() {
+    this.location.back();
+  }
 }

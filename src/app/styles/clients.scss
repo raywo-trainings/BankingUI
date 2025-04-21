@@ -1,4 +1,4 @@
-.client-details {
+.client-details-row {
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
@@ -39,5 +39,20 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+  }
+}
+
+.client-details {
+  --client-details-width: 80%;
+  --client-details-height: 76vh;
+
+  width: var(--client-details-width);
+  height: var(--client-details-height);
+  margin-top: 2rem;
+  margin-inline: auto;
+
+  .account-list {
+    height: calc(var(--client-details-height) - 18rem);
+    overflow-y: auto;
   }
 }

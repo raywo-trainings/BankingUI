@@ -60,9 +60,7 @@ export class EntryService {
 
     const queryString = queryParams.toString();
 
-    const url = `${baseUrl}/accounts/${iban}/entries${queryString ? `?${queryString}` : ""}`;
-    console.log(url);
-    return url;
+    return `${baseUrl}/accounts/${iban}/entries${queryString ? `?${queryString}` : ""}`;
   }
 
 

@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div>
+<div class="account-list">
   <div class="list-group">
     @for (account of accounts$ | async; track account.iban) {
       <a routerLink="/accounts/{{ account.iban }}"

@@ -5,6 +5,7 @@
          id="ownerInput"
          name="owner"
          placeholder="Kontoinhaber"
+         [disabled]="readonly()"
          required
          minlength="2"
          maxlength="100"
