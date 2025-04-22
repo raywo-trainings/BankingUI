@@ -1,10 +1,20 @@
 <div class="card account-details">
   <div class="card-header hstack gap-2 justify-content-between">
-    <div>
-      <h2 class="card-title h5">
-        {{ iban() | iban }}
-      </h2>
-      <span class="text-muted">{{ account?.owner | fullName }}</span>
+    <div class="hstack gap-3">
+      <div class="h1">
+        @if (isCurrentAccount(account)) {
+          <fa-icon [icon]="faCreditCard"></fa-icon>
+        }
+        @if (isSavingsAccount(account)) {
+          <fa-icon [icon]="faCoins"></fa-icon>
+        }
+      </div>
+      <div>
+        <h2 class="card-title h5">
+          {{ iban() | iban }}
+        </h2>
+        <span class="text-muted">{{ account?.owner | fullName }}</span>
+      </div>
     </div>
 
     <div class="hstack gap-2">

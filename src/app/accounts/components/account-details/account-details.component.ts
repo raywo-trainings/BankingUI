@@ -16,6 +16,9 @@ import { DepositButtonComponent } from "../../../entries/components/deposit-butt
 import { WithdrawButtonComponent } from "../../../entries/components/withdraw-button/withdraw-button.component";
 import { DateRangePickerComponent } from "../../../common/components/date-range-picker/date-range-picker.component";
 import { DateTime } from "luxon";
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 
 @Component({
@@ -30,7 +33,8 @@ import { DateTime } from "luxon";
     DeleteAccountButtonComponent,
     DepositButtonComponent,
     WithdrawButtonComponent,
-    DateRangePickerComponent
+    DateRangePickerComponent,
+    FaIconComponent
   ],
   templateUrl: "./account-details.component.html"
 })
@@ -44,6 +48,8 @@ export class AccountDetailsComponent implements OnDestroy {
 
   protected readonly isCurrentAccount = isCurrentAccount;
   protected readonly isSavingsAccount = isSavingsAccount;
+  protected readonly faCreditCard = faCreditCard;
+  protected readonly faCoins = faCoins;
 
   protected account?: Account;
   protected entries$?: Observable<Entry[]>;
@@ -98,4 +104,5 @@ export class AccountDetailsComponent implements OnDestroy {
   protected onAccountDeleted() {
     this.location.back();
   }
+
 }
