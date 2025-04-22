@@ -1,11 +1,6 @@
 <div class="account-row">
   <div class="account-row-icon">
-    @if (isCurrentAccount(account())) {
-      <fa-icon [icon]="faCreditCard"></fa-icon>
-    }
-    @if (isSavingsAccount(account())) {
-      <fa-icon [icon]="faCoins"></fa-icon>
-    }
+    <app-account-icon [account]="account()" />
   </div>
 
   <div class="account-row-info">

@@ -2,12 +2,7 @@
   <div class="card-header hstack gap-2 justify-content-between">
     <div class="hstack gap-3">
       <div class="h1">
-        @if (isCurrentAccount(account)) {
-          <fa-icon [icon]="faCreditCard"></fa-icon>
-        }
-        @if (isSavingsAccount(account)) {
-          <fa-icon [icon]="faCoins"></fa-icon>
-        }
+        <app-account-icon [account]="account!" />
       </div>
       <div>
         <h2 class="card-title h5">

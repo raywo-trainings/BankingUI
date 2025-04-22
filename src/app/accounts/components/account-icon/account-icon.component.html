@@ -1,0 +1,6 @@
+@if (isCurrentAccount(account())) {
+  <fa-icon [icon]="faCreditCard"></fa-icon>
+}
+@if (isSavingsAccount(account())) {
+  <fa-icon [icon]="faCoins"></fa-icon>
+}
