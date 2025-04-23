@@ -1,7 +1,24 @@
 <div class="hstack gap-2 justify-content-between mb-3">
   <h2>Konten</h2>
 
-  <div>
+  <div class="hstack gap-2">
+    <input type="checkbox"
+           class="form-check-input"
+           id="currentAccCheck"
+           autocomplete="off"
+           [(ngModel)]="currentAccountCheck">
+    <label class="form-check-label" for="currentAccCheck">Girokonten</label>
+
+    <input type="checkbox"
+           class="form-check-input"
+           id="savingsAccCheck"
+           autocomplete="off"
+           [(ngModel)]="savingsAccountCheck">
+    <label class="form-check-label" for="savingsAccCheck">Sparkonten</label>
+
+    <app-filter-input [(filterText)]="filterText"
+                      placeholder="IBAN oder Kunde" />
+
     <button app-add-button
             caption="Girokonto eröffnen"
             class="me-2"
@@ -16,7 +33,7 @@
 
 <div class="account-list">
   <div class="list-group">
-    @for (account of accounts$ | async; track account.iban) {
+    @for (account of filteredAccounts$ | async; track account.iban) {
       <a routerLink="/accounts/{{ account.iban }}"
          class="list-group-item list-group-item-action">
         <app-account-row-view [account]="account" />
