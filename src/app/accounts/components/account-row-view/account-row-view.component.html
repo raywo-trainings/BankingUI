@@ -20,7 +20,9 @@
     }
   </div>
 
-  <div class="account-row-balance">
+  <div class="account-row-balance"
+       [class.debit-amount]="account().balance < 0"
+       [class.credit-amount]="account().balance > 0">
     {{ account().balance | currency: "EUR" }}
   </div>
 
