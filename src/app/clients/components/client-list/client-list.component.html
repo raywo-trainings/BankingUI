@@ -1,7 +1,10 @@
 <div class="hstack gap-2 justify-content-between mb-3">
   <h2>Kunden</h2>
 
-  <div>
+  <div class="hstack gap-2">
+    <app-filter-input [(filterText)]="filterText"
+                      placeholder="nach Namen suchen" />
+
     <button app-add-button
             caption="Kunde anlegen"
             (addClick)="addClient()">
@@ -10,32 +13,43 @@
 </div>
 
 <div class="list-group">
-  @for (client of clients$ | async; track client.id) {
+  @for (client of filteredClients$ | async; track client.id) {
     <a routerLink="/clients/{{client.id}}"
        class="list-group-item list-group-item-action">
       <app-client-row-view [client]="client" />
     </a>
   } @empty {
-    <div class="card info-card border-info">
-      <div class="card-header">
-        <h3>Keine Kunden</h3>
+    @if (filterText() || filterText() === '') {
+      <div class="card info-card border-info">
+        <div class="card-body">
+          <h4 class="card-title h5">Nichts gefunden</h4>
+          <p class="card-text">
+            Kein Kunde zu „<strong>{{ filterText() }}</strong>“ gefunden.
+          </p>
+        </div>
       </div>
+    } @else {
+      <div class="card info-card border-info">
+        <div class="card-header">
+          <h3>Keine Kunden</h3>
+        </div>
 
-      <div class="card-body">
-        <h4 class="card-title">Es sind noch keine Kunden angelegt worden.</h4>
-        <p class="card-text">
-          Eine Bank ohne Kunden ist nichts.
-        </p>
-        <p class="card-text">
-          Erfasse deine Kunden jetzt, um mit der Kontenverwaltung zu beginnen.
-        </p>
+        <div class="card-body">
+          <h4 class="card-title">Es sind noch keine Kunden angelegt worden.</h4>
+          <p class="card-text">
+            Eine Bank ohne Kunden ist nichts.
+          </p>
+          <p class="card-text">
+            Erfasse deine Kunden jetzt, um mit der Kontenverwaltung zu beginnen.
+          </p>
 
-        <button app-add-button
-                caption="Lege jetzt deinen ersten Kunden an!"
-                class="me-2"
-                (addClick)="addClient()">
-        </button>
+          <button app-add-button
+                  caption="Lege jetzt deinen ersten Kunden an!"
+                  class="me-2"
+                  (addClick)="addClient()">
+          </button>
+        </div>
       </div>
-    </div>
+    }
   }
 </div>
