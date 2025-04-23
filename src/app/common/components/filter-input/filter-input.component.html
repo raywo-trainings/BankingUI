@@ -1,0 +1,10 @@
+<div class="input-group">
+  <span class="input-group-text">
+    <fa-icon [icon]="faSearch"></fa-icon>
+  </span>
+  <input type="search"
+         class="form-control"
+         [placeholder]="placeholder()"
+         autocomplete="off"
+         [(ngModel)]="filterText" />
+</div>

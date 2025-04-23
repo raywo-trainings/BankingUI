@@ -1,6 +1,6 @@
-import { inject, Injectable } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
-import { Location } from "@angular/common";
+import {inject, Injectable} from "@angular/core";
+import {NavigationEnd, Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 
 @Injectable({
@@ -24,11 +24,11 @@ export class NavigationService {
 
 
   public async back() {
-    this._history.pop();
-
     if (this._history.length > 0) {
+      this._history.pop();
       this.location.back();
     } else {
+      this._history.pop();
       await this.router.navigateByUrl("/");
     }
   }
