@@ -17,6 +17,7 @@ import { WithdrawButtonComponent } from "../../../entries/components/withdraw-bu
 import { DateRangePickerComponent } from "../../../common/components/date-range-picker/date-range-picker.component";
 import { DateTime } from "luxon";
 import { AccountIconComponent } from "../account-icon/account-icon.component";
+import { BackButtonComponent } from "../../../common/components/back-button/back-button.component";
 
 
 @Component({
@@ -32,7 +33,8 @@ import { AccountIconComponent } from "../account-icon/account-icon.component";
     DepositButtonComponent,
     WithdrawButtonComponent,
     DateRangePickerComponent,
-    AccountIconComponent
+    AccountIconComponent,
+    BackButtonComponent
   ],
   templateUrl: "./account-details.component.html"
 })

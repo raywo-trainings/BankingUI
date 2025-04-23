@@ -9,6 +9,7 @@ import { CurrencyPipe, Location } from "@angular/common";
 import { AccountListComponent } from "../../../accounts/components/account-list/account-list.component";
 import { ClientEditButtonComponent } from "../client-edit-button/client-edit-button.component";
 import { ClientDeleteButtonComponent } from "../client-delete-button/client-delete-button.component";
+import { BackButtonComponent } from "../../../common/components/back-button/back-button.component";
 
 
 @Component({
@@ -18,7 +19,8 @@ import { ClientDeleteButtonComponent } from "../client-delete-button/client-dele
     CurrencyPipe,
     AccountListComponent,
     ClientEditButtonComponent,
-    ClientDeleteButtonComponent
+    ClientDeleteButtonComponent,
+    BackButtonComponent
   ],
   templateUrl: "./client-details.component.html"
 })
