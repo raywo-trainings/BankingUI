@@ -16,6 +16,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     .pipe(
       tap(() => statusService.setOnline()),
       catchError((error: HttpErrorResponse) => {
+        console.log("Error: ", error);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
         const message = error.error.message;
         const statusText = error.statusText;
