@@ -7,6 +7,11 @@ import { createToastFromError } from "../models/toast.model";
 import { OnlineStatusService } from "../services/online-status.service";
 
 
+const possibleErrorMessages = [
+  "Load failed",
+  "NetworkError when attempting to fetch resource."
+];
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const errorContext = req.headers.get("X-Error-Context") ?? "Ein Fehler ist aufgetreten";
   const toastService = inject(ToastService);
@@ -17,11 +22,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       tap(() => statusService.setOnline()),
       catchError((error: HttpErrorResponse) => {
         console.log("Error: ", error);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-        const message = error.error.message;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const message = error.error.message as string;
         const statusText = error.statusText;
 
-        if (message === "Load failed" && statusText === "Unknown Error") {
+        // if (message === "Load failed" && statusText === "Unknown Error") {
+        if (possibleErrorMessages.includes(message) && statusText === "Unknown Error") {
           statusService.setOffline();
           return EMPTY;
         } else {
