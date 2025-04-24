@@ -26,4 +26,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           pnpm install
-          pnpm run ng deploy
+          pnpm run ng deploy --name="raywo" --email="ray@skillbird.de"
