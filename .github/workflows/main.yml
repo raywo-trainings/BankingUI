@@ -23,7 +23,7 @@ jobs:
 
       - name: Prepare and deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           pnpm install
-          pnpm run ng -- deploy
+          pnpm run ng deploy
