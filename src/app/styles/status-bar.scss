@@ -1,0 +1,45 @@
+.online-status-bar {
+  position: absolute;
+  top: 4.5rem;
+  left: calc(25% / 2);
+  z-index: 25;
+
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  width: 75%;
+  padding-block: .5rem;
+  padding-inline: 1rem;
+  margin-inline: auto;
+
+  border-radius: var(--bs-border-radius);
+  border: 1px solid;
+
+  background-color: var(--bs-danger-bg-subtle);
+  color: var(--bs-danger);
+
+  .icon-stack {
+    --icon-stack-font-size: 1.8375rem;
+
+    position: unset;
+    font-size: var(--icon-stack-font-size);
+    width: calc(var(--icon-stack-font-size) * 1.5);
+    height: calc(var(--icon-stack-font-size) * 1.5);
+
+    .icon-stack-1x,
+    .icon-stack-2x,
+    .icon-stack-3x {
+      position: absolute;
+      width: 100%;
+    }
+
+    .icon-stack-1x {
+      line-height: inherit;
+    }
+
+    .icon-stack-2x {
+      font-size: 1.2em;
+    }
+  }
+}

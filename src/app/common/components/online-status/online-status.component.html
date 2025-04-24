@@ -1,0 +1,19 @@
+@let status = (status$ | async);
+
+@if (status === "offline") {
+  <div class="online-status-bar">
+    <div class="icon-stack h">
+      <fa-icon [icon]="faSlash" class="icon-stack-2x"></fa-icon>
+      <fa-icon [icon]="faSignal" class="icon-stack-1x"></fa-icon>
+    </div>
+
+    <div>
+      <h2 class="h4">Offline</h2>
+      <p>
+        Es sieht so aus, als ob du nicht mit dem Banksystem von
+        <span class="fw-light">RAYBANK</span> verbunden bist. Läuft der
+        entsprechende Dienst?
+      </p>
+    </div>
+  </div>
+}
